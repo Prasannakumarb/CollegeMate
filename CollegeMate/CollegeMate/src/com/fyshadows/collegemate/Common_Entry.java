@@ -303,7 +303,7 @@ public class Common_Entry extends ActionBarActivity {
 
 	public void dummy_selected(View view) {
 
-		Intent i = new Intent(this, StudentCollegeregistration.class);
+		Intent i = new Intent(this, NotificationHomeScreen.class);
 		// Fire that second activity
 		startActivity(i);
 	}

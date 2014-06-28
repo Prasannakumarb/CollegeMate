@@ -130,5 +130,24 @@
     <string name="title_activity_swipe_screen">SwipeScreen</string>
     <string name="title_activity_forum_comments_view">ForumCommentsView</string>
     <string name="swipe_for_comments">&lt;&lt; Swipe left to view comments &gt;&gt;</string>
+    <string name="title_activity_notification_home_screen">NotificationHomeScreen</string>
+    
+    
+    
+    <!-- Notification -->
+    <string name="notificationmsg">Message</string>
+    <string name="year">Select Year</string>
+    <string name="sendnoti">Send Notification</string>
+    
+    
+    <string-array name="year">
+        <item>1st YEAR</item>
+        <item>2nd YEAR</item>
+        <item>3rd YEAR</item>
+        <item>4th YEAR</item>
+        <item>5th YEAR</item>
+
+    </string-array>
+    
 
 </resources>

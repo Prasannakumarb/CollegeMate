@@ -202,6 +202,29 @@ public String getCurrentuserId(){
 	 
 }
 
+//Getting the current user user id
+public String getCollegeId(){
+
+	  String selectQuery = "SELECT college_id FROM cm_mob_masteruserdetails"; 
+	  Log.i("came in","came in");
+	  SQLiteDatabase db = this.getReadableDatabase();
+	  Cursor cursor = db.rawQuery(selectQuery, null);
+
+	  if (null != cursor && cursor.moveToFirst()) {
+		  Log.i("val","val");
+		  int colid = cursor.getColumnIndex("college_id");
+		  db.close();
+	  	return cursor.getString(colid);
+	  }
+	  else
+	  {
+		  Log.i("noval","noval");
+		  db.close();
+	  	return "false";
+	  }
+	 
+}
+
 //Getting ID value if present
 public String CheckId(String id){
 

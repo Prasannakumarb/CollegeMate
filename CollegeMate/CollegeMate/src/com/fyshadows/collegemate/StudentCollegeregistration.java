@@ -365,6 +365,7 @@ public class StudentCollegeregistration extends ActionBarActivity implements OnI
 	        URL_getdepartments = "http://fyshadows.com/CollegeMate/getdepartmentdetails.php";
 	        URL_getdepartments=URL_getdepartments + "?course=" +parent.getItemAtPosition(position).toString().trim();
 	        Log.i("URL",URL_getdepartments);
+	        departList.clear();
 	    	new GetDepartment().execute(); 
 	    }
 

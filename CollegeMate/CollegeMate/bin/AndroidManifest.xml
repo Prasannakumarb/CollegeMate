@@ -46,7 +46,6 @@
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -119,8 +118,7 @@
             android:name="com.fyshadows.collegemate.StudentCollegeregistration"
             android:label="@string/title_activity_student_collegeregistration" >
         </activity>
-
-<activity
+        <activity
             android:name="com.fyshadows.collegemate.DiscussionForumHome"
             android:label="@string/title_activity_discussion_forum_home" >
         </activity>
@@ -141,7 +139,11 @@
             android:label="@string/title_activity_forum_comments_view"
             android:windowSoftInputMode="stateHidden" >
         </activity>
-
+        <activity
+            android:name="com.fyshadows.collegemate.NotificationHomeScreen"
+            android:label="@string/title_activity_notification_home_screen" >
+          
+        </activity>
     </application>
 
 </manifest>

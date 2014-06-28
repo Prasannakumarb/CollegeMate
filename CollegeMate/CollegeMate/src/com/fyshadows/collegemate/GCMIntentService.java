@@ -32,6 +32,7 @@ public class GCMIntentService extends GCMBaseIntentService {
 	static int messagecount2 = 0;
 	private static final String TAG = "GCMIntentService";
 	Collegemate_DB db = new Collegemate_DB(this);
+	public static String identify;
 
 	public GCMIntentService() {
 		super(SENDER_ID);
@@ -65,7 +66,7 @@ public class GCMIntentService extends GCMBaseIntentService {
 	@Override
 	protected void onMessage(Context context, Intent intent) {
 
-		String identify = intent.getExtras().getString("identify");
+		identify = intent.getExtras().getString("identify");
 		if (identify != null) {
 			if (identify.trim().equals("chat")) {
 				Log.i("got this", intent.getExtras().getString("userid"));
@@ -150,9 +151,11 @@ public class GCMIntentService extends GCMBaseIntentService {
 				displayMessage(context, message);
 				generateNotification(context, message);
 
-			} else {
-				Log.i(TAG, "nothing");
-
+			} else if (identify.trim().equals("notification")) {
+				String message = intent.getExtras().getString("message");
+				userid = intent.getExtras().getString("userid");
+				displayMessage(context, message);
+				generateNotification(context, message);
 			}
 		}
 	}
@@ -193,6 +196,7 @@ public class GCMIntentService extends GCMBaseIntentService {
 	 */
 	@SuppressWarnings("deprecation")
 	private static void generateNotification(Context context, String message) {
+		if (identify.trim().equals("chat")) {
 		int icon = R.drawable.ic_launcher;
 		long when = System.currentTimeMillis();
 
@@ -232,7 +236,8 @@ public class GCMIntentService extends GCMBaseIntentService {
 			bundle.putString("PicPath", picpath);
 			notificationIntent.putExtras(bundle);
 		}
-		 notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+		notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+				| Intent.FLAG_ACTIVITY_SINGLE_TOP);
 		PendingIntent intent = PendingIntent.getActivity(context, 0,
 				notificationIntent, 0);
 		if (messagecount2 == 0) {
@@ -253,7 +258,34 @@ public class GCMIntentService extends GCMBaseIntentService {
 		notification.defaults |= Notification.DEFAULT_VIBRATE;
 
 		notificationManager.notify(Unique_Integer_Number, notification);
-
-	}
+		}
+		else if (identify.trim().equals("notification"))
+		{
+			int icon = R.drawable.ic_launcher;
+	        long when = System.currentTimeMillis();
+	        NotificationManager notificationManager = (NotificationManager)
+	                context.getSystemService(Context.NOTIFICATION_SERVICE);
+	        Notification notification = new Notification(icon, message, when);
+	         
+	        String title = context.getString(R.string.app_name);
+	         
+	        Intent notificationIntent = new Intent(context, Common_Entry.class);
+	        // set intent so it does not start a new activity
+	        notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
+	                Intent.FLAG_ACTIVITY_SINGLE_TOP);
+	        PendingIntent intent =
+	                PendingIntent.getActivity(context, 0, notificationIntent, 0);
+	        notification.setLatestEventInfo(context, title, message, intent);
+	        notification.flags |= Notification.FLAG_AUTO_CANCEL;
+	         
+	        // Play default notification sound
+	        notification.defaults |= Notification.DEFAULT_SOUND;
+	         
+	        // Vibrate if vibrate is enabled
+	        notification.defaults |= Notification.DEFAULT_VIBRATE;
+	        notificationManager.notify(0, notification);    
+		}
+		}
+	
 
 }

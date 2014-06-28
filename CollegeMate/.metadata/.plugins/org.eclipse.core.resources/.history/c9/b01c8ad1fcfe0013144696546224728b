@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.fyshadows.collegemate"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!-- GCM connects to Internet Services. -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- GCM requires a Google account. -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+
+    <!-- Keeps the processor from sleeping when a message is received. -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <!-- Creates a custom permission so only this app can receive its messages. -->
+    <permission
+        android:name="com.fyshadows.collegemate.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="com.fyshadows.collegemate.permission.C2D_MESSAGE" />
+
+    <!-- This app has permission to register and receive data message. -->
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+
+    <!-- Network State Permissions to detect Internet status -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <!-- Permission to vibrate -->
+    <uses-permission android:name="android.permission.VIBRATE" />
+
+    <uses-sdk
+        android:minSdkVersion="11"
+        android:targetSdkVersion="19" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="com.fyshadows.collegemate.Common_Entry"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.fyshadows.collegemate.RegistrationAdmin"
+            android:label="@string/title_activity_registration_admin" >
+        </activity>
+        <activity
+            android:name="com.fyshadows.collegemate.AdminCollegeregistraton"
+            android:label="@string/title_activity_admin_collegeregistraton"
+            android:parentActivityName="com.fyshadows.collegemate.RegistrationAdmin" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.fyshadows.collegemate.RegistrationAdmin" />
+        </activity>
+        <activity
+            android:name="com.fyshadows.collegemate.Admin_home"
+            android:label="@string/title_activity_admin_home" >
+        </activity>
+        <activity
+            android:name="com.fyshadows.collegemate.Admin_home_screen"
+            android:label="@string/title_activity_admin_home_screen" >
+        </activity>
+        <activity
+            android:name="com.fyshadows.collegemate.ChatHomeScreen"
+            android:label="@string/title_activity_admin_home_screen" >
+        </activity>
+
+        <receiver
+            android:name="com.google.android.gcm.GCMBroadcastReceiver"
+            android:permission="com.google.android.c2dm.permission.SEND" >
+            <intent-filter>
+
+                <!-- Receives the actual messages. -->
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <!-- Receives the registration id. -->
+                <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+
+                <category android:name="com.fyshadows.collegemate" />
+            </intent-filter>
+        </receiver>
+
+        <service android:name="com.fyshadows.collegemate.GCMIntentService" />
+
+        <activity
+            android:name="com.fyshadows.collegemate.MessageActivity"
+            android:label="@string/title_activity_message"
+            android:parentActivityName="com.fyshadows.collegemate.FriendList" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.fyshadows.collegemate.FriendList" />
+        </activity>
+        <activity
+            android:name="com.fyshadows.collegemate.FriendList"
+            android:label="@string/title_activity_friend_list" >
+        </activity>
+        <activity
+            android:name="com.fyshadows.collegemate.BasicHomeScreen"
+            android:label="@string/title_activity_basic_home_screen" >
+        </activity>
+        <activity
+            android:name="com.fyshadows.collegemate.FriendListview"
+            android:label="@string/title_activity_friend_listview" >
+        </activity>
+        <activity
+            android:name="com.fyshadows.collegemate.RegistrationStudent"
+            android:label="@string/title_activity_registration_student" >
+        </activity>
+        <activity
+            android:name="com.fyshadows.collegemate.StudentCollegeregistration"
+            android:label="@string/title_activity_student_collegeregistration" >
+        </activity>
+
+<activity
+            android:name="com.fyshadows.collegemate.DiscussionForumHome"
+            android:label="@string/title_activity_discussion_forum_home" >
+        </activity>
+        <activity
+            android:name="com.fyshadows.collegemate.ListForumTopics"
+            android:label="@string/title_activity_list_forum_topics" >
+        </activity>
+        <activity
+            android:name="com.fyshadows.collegemate.MainActivity"
+            android:label="@string/title_activity_list_forum_topics" >
+        </activity>
+        <activity
+            android:name="com.fyshadows.collegemate.ForumFullView"
+            android:label="@string/title_activity_forum_full_view" >
+        </activity>
+        <activity
+            android:name="com.fyshadows.collegemate.ForumCommentsView"
+            android:label="@string/title_activity_forum_comments_view"
+            android:windowSoftInputMode="stateHidden" >
+        </activity>
+
+    </application>
+
+</manifest>
