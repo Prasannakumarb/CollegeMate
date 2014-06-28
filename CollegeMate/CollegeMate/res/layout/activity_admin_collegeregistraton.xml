@@ -1,0 +1,113 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.fyshadows.collegemate.AdminCollegeregistraton"
+    tools:ignore="MergeRootFrame" >
+    
+     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/collName"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:text="@string/collname" />
+
+            <TextView
+                android:id="@+id/collcity"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:text="@string/collcity" />
+
+            <TextView
+                android:id="@+id/collegephonenumber"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:text="@string/collegephonenumber" />
+
+            <TextView
+                android:id="@+id/collegeemailid"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:text="@string/collegeemailid" />
+
+            <TextView
+                android:id="@+id/collegewebsite"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:text="@string/collegewebsite" />
+
+           
+        
+            
+            
+           
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="0.46"
+            android:orientation="vertical" >
+
+            <EditText
+                android:id="@+id/editText_collname"
+                android:layout_width="match_parent"
+                android:layout_height="35dp" >
+
+                <requestFocus />
+            </EditText>
+
+            <EditText
+                android:id="@+id/editText_collcity"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                 >
+            </EditText>
+
+            <EditText
+                android:id="@+id/editText_collegephonenumber"
+                android:layout_width="match_parent"
+                android:layout_height="35dp" 
+                android:inputType="phone"
+                >
+            </EditText>
+            
+            <EditText
+                android:id="@+id/editText_collegeemail"
+                android:layout_width="match_parent"
+                android:layout_height="35dp" 
+                android:inputType="textEmailAddress"
+                >
+            </EditText>
+
+            <EditText
+                android:id="@+id/editText_collegewebsite"
+                android:layout_width="match_parent"
+                android:layout_height="35dp" 
+                >
+            </EditText>
+
+            <Button
+                android:id="@+id/Registercollegeadmin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="registercollege"
+                android:text="@string/Registercollege" />
+
+        </LinearLayout>
+    </LinearLayout>
+    
+</FrameLayout>
+    
+
+

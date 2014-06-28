@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/listviewbg"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp" >
+
+        <TextView
+            android:id="@+id/dscTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="Discussion Title"
+            android:textColor="#77d3f1"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/dscCategory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/dscTitle"
+            android:layout_marginTop="5dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="Discussion Category"
+            android:textColor="#77d3f1"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/dscDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/dscCategory"
+            android:layout_marginTop="5dp"
+            android:ellipsize="end"
+            android:maxLength="110"
+            android:maxLines="3"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="Discussion Description"
+            android:textColor="#908484"
+            android:textSize="16sp" />
+
+        <View
+            android:id="@+id/view1"
+            android:layout_width="fill_parent"
+            android:layout_height="1dip"
+            android:layout_below="@+id/dscDescription"
+            android:layout_marginTop="10dp"
+            android:background="#efeeee" />
+
+        <TextView
+            android:id="@+id/dscTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/dscDescription"
+            android:layout_marginTop="20dp"
+            android:paddingLeft="10dp"
+            android:text="2014 02 07 18:26:54"
+            android:textSize="10sp" />
+
+        <TextView
+            android:id="@+id/dscDiscId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/dscDescription"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:text="TextView"
+            android:textSize="10sp" />
+
+        <TextView
+            android:id="@+id/likeText1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/view1"
+            android:text="Like"
+            android:textColor="#908484"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp" />
+    </RelativeLayout>
+
+</RelativeLayout>

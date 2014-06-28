@@ -1,0 +1,59 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/BG"
+    tools:context="com.fyshadows.collegemate.Common_Entry"
+    tools:ignore="MergeRootFrame" >
+    
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="match_parent"
+        android:layout_height="32dp"
+        android:layout_centerHorizontal="True"
+        android:background="@color/TopStrip"
+        android:text="@string/Identify" 
+        android:paddingTop="8dp"
+        android:paddingLeft="15dp"
+        />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="44dp"
+        android:orientation="vertical" >
+        
+         
+ <Button
+        android:id="@+id/admin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="21dp"
+        android:text="@string/admin"
+        android:onClick="Admin_selected" 
+         />
+    <Button
+        android:id="@+id/student"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="21dp"
+        android:text="@string/student" 
+        android:onClick="Student_selected" 
+        />
+    
+    <Button
+        android:id="@+id/Dummy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="21dp"
+        android:text="Dummy" 
+        android:onClick="dummy_selected" 
+        />
+    
+   
+    </LinearLayout>
+    
+   </FrameLayout>
+

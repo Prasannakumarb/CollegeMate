@@ -1,0 +1,68 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/BG" >
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:background="@color/TopStrip"
+        android:paddingLeft="10dp"
+        android:paddingTop="10dp"
+        android:text="@string/disc_forum_create"
+        android:textColor="@color/TopStripTextColor"
+        android:textSize="16sp" />
+
+    <EditText
+        android:id="@+id/discussion_titleeditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/textView1"
+        android:layout_marginTop="18dp"
+        android:hint="@string/disc_forum_title" >
+
+        <requestFocus />
+    </EditText>
+
+    <EditText
+        android:id="@+id/discussion_categoryeditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/discussion_titleeditText"
+        android:layout_marginTop="18dp"
+        android:hint="@string/disc_forum_category" />
+
+    <EditText
+        android:id="@+id/discussion_descriptioneditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/discussion_categoryeditText"
+        android:layout_marginTop="29dp"
+        android:ems="10"
+        android:singleLine="false"
+        android:hint="@string/disc_forum_description"
+        android:inputType="textMultiLine" />
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/buttonbg"
+        android:onClick="createDiscussion"
+        android:text="@string/disc_forum_post" />
+
+</RelativeLayout>

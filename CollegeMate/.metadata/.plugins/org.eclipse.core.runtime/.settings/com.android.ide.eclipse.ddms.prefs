@@ -1,0 +1,10 @@
+ddms.logcat.automonitor.userprompt=true
+eclipse.preferences.version=1
+logcat.view.colsize.Application=210
+logcat.view.colsize.Level=110
+logcat.view.colsize.PID=50
+logcat.view.colsize.TID=50
+logcat.view.colsize.Tag=268
+logcat.view.colsize.Text=543
+logcat.view.colsize.Time=82
+logcat.view.filters.list=name\: 'a', tag\: 'wpa_supplicant', text\: '', pid\: '', app\: '', level\: 'error', name\: 'b', tag\: 'wpa_supplicant', text\: '', pid\: '', app\: '', level\: 'error', name\: 'ab', tag\: '', text\: '', pid\: '7483', app\: '', level\: 'error', name\: 'dsfs', tag\: 'wpa_supplicant', text\: 'RX ctrl_iface - hexdump_ascii(len\=11)\:', pid\: '7483', app\: '', level\: 'error', 

@@ -1,0 +1,64 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/BG" >
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/TopStrip"
+        android:paddingLeft="10dp"
+        android:paddingTop="10dp"
+        android:text="@string/Identify"
+        android:textColor="@color/TopStripTextColor"
+        android:textSize="16sp" />
+
+    <Button
+        android:id="@+id/admin"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textView1"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/buttonbg"
+        android:onClick="Chatwindow"
+        android:text="@string/Chattext"
+        android:textColor="@color/defaultTextColor"
+        android:textSize="16sp"
+        android:textAlignment="center" />
+
+
+    
+    <Button
+        android:id="@+id/discussion"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignLeft="@+id/admin"
+        android:layout_alignRight="@+id/admin"
+        android:layout_below="@+id/admin"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/buttonbg"
+        android:onClick="discussion_forum_view"
+        android:text="@string/disc_forum"
+        android:textColor="@color/defaultTextColor"
+        android:textSize="16sp" />
+    
+    <Button
+        android:id="@+id/viewdiscussions"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignLeft="@+id/admin"
+        android:layout_alignRight="@+id/admin"
+        android:layout_below="@+id/discussion"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/buttonbg"
+        android:onClick="discussion_forum_list"
+        android:text="@string/disc_forum_view"
+        android:textColor="@color/defaultTextColor"
+        android:textSize="16sp" />
+
+</RelativeLayout>

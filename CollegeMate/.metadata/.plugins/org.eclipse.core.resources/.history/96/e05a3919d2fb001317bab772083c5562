@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- App settings -->
+    <string name="app_name">CollegeMate</string>
+    <string name="action_settings">Settings</string>
+    <string name="not_name">CollegeMate</string>
+
+    <!-- Identification Screen -->
+    <string name="Identify">Tell us your Role!</string>
+    <string name="admin">ADMIN</string>
+    <string name="student">STUDENT</string>
+
+    <!-- Title -->
+    <string name="Homescreen">Home</string>
+    <string name="Friendlist">My Friends</string>
+
+    <!-- Registration Screen -->
+    <string name="title_activity_registration_admin">RegistrationAdmin</string>
+    <string name="name">NAME</string>
+    <string name="email">EMAIL</string>
+    <string name="sex">SEX</string>
+    <string name="dob">DOB</string>
+    <string name="phone">Phone Number</string>
+    <string name="Registeradmin">Continue to college details</string>
+    <string name="selectPic">Select Picture</string>
+    <string name="Browse">Browse</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="cityin">City In</string>
+
+    <color name="BG">#d2d0cd</color>
+    <color name="darkgrey">#C0C0C0</color>
+    <color name="TopStrip">#C1BEB9</color>
+    <color name="TopStripborder">#4d4747</color>
+
+    <!-- college Registration -->
+    <string name="title_activity_admin_collegeregistraton">AdminCollegeregistraton</string>
+    <string name="collname">College Name</string>
+    <string name="collcity">College City</string>
+    <string name="collegephonenumber">College Phone number</string>
+    <string name="collegeemailid">College Email ID</string>
+    <string name="collegewebsite">College Website</string>
+    <string name="selectLogo">Select Logo</string>
+    <string name="Registercollege">Register college</string>
+    <string name="title_activity_admin_home">Admin Home</string>
+    <string name="imagedesc">Profile Pic</string>
+    <string name="drawer_open">Open</string>
+    <string name="drawer_close">Close</string>
+    <string name="title_activity_admin_home_screen">Admin_home_screen</string>
+    <string name="hello_world">Hello world!</string>
+
+    <!-- GCM -->
+
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_main">Push Notifications</string>
+    <string name="error_config">Please set the %1$s constant and recompile the app.</string>
+    <string name="already_registered">Device is already registered on server.</string>
+    <string name="gcm_registered">From GCM: device successfully registered!</string>
+    <string name="gcm_unregistered">From GCM: device successfully unregistered!</string>
+    <string name="gcm_message">From GCM: you got message!</string>
+    <string name="gcm_error">From GCM: error (%1$s).</string>
+    <string name="gcm_recoverable_error">From GCM: recoverable error (%1$s).</string>
+    <string name="gcm_deleted">From GCM: server deleted %1$d pending messages!</string>
+    <string name="server_registering">Trying (attempt %1$d/%2$d) to register device on Demo Server.</string>
+    <string name="server_registered">From Demo Server: successfully added device!</string>
+    <string name="server_unregistered">From Demo Server: successfully removed device!</string>
+    <string name="server_register_error">Could not register device on Demo Server after %1$d attempts.</string>
+    <string name="server_unregister_error">Could not unregister device on Demo Server (%1$s).</string>
+    <string name="options_register">Register</string>
+    <string name="options_unregister">Unregister</string>
+    <string name="options_clear">Clear</string>
+    <string name="options_exit">Exit</string>
+    <string name="title_activity_chat">ChatActivity</string>
+
+    <!-- Chat activity -->
+    <string name="main_empty_list">There is no recent conversation, write new message to start one.</string>
+
+    <color name="Mytextcolor">#FFD700</color>
+    <color name="Histextcolor">#7CFC00</color>
+    <color name="textcolor">#000000</color>
+    <color name="textFieldColor">#000</color>
+    <color name="textShadow">#FFF</color>
+    <color name="listViewBg">#DADFEE</color>
+    <color name="sendLightColor">#8897BF</color>
+    <color name="sendMeduimColor">#5D6CA5</color>
+    <color name="sendDarkColor">#515F9F</color>
+    <color name="barDarkColor">#CECECE</color>
+    <color name="barMeduimColor">#DFDEE0</color>
+    <color name="barLightColor">#F2F2F2</color>
+
+    <string name="title_activity_message">MessageActivity</string>
+    <string name="title_activity_friend_list">FriendList</string>
+    <string name="title_activity_basic_home_screen">BasicHomeScreen</string>
+    <string name="Welcomemsg">Welcome to CollegeMate. </string>
+    <string name="quote"> We Connect people to Built FUTURE :).</string>
+    <string name="Chattext"> CHAT</string>
+    <string name="title_activity_friend_listview">FriendListview</string>
+    <string name="title_section1">Section 1</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section3">Section 3</string>
+    <string name="SearchFriend">Search Friends</string>
+    
+
+</resources>
