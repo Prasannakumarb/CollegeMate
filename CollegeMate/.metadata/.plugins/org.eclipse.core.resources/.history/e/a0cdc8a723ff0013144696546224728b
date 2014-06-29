@@ -305,7 +305,7 @@ public class NotificationHomeScreen extends ActionBarActivity  implements OnItem
 			String year = spinneryear.getSelectedItem().toString().substring(0, 1);
              String colid=db.getCollegeId();
              String message  = ((EditText)findViewById(R.id.editText_msg)).getText().toString();
-Log.i("sad","dsf"+ colid);
+
 			String link="http://fyshadows.com/CollegeMate/send_notification.php?collegeid="+colid.trim()+"&course="+course.trim()+"&department="+depart.trim()+"&message="+message.trim();
 			Log.i("URL",link);
 			HttpClient client = new DefaultHttpClient();
