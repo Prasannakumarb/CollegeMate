@@ -67,7 +67,7 @@
         android:layout_height="40dp"
         android:layout_alignLeft="@+id/admin"
         android:layout_alignRight="@+id/admin"
-        android:layout_below="@+id/viewdiscussions"
+        android:layout_below="@+id/discussion"
         android:layout_marginTop="10dp"
         android:background="@drawable/buttonbg"
         android:onClick="sendnotification"
