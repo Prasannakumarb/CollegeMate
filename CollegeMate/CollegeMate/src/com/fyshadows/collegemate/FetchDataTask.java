@@ -84,6 +84,8 @@ public class FetchDataTask extends AsyncTask<String, Void, String> {
 				app.setTime(json.getString("timestamp"));
 				app.setDiscId(json.getString("discussion_id"));
 				app.setLikeStatus(json.getString("like_status"));
+				app.setCommCount(json.getString("commCount"));
+				app.setLikeCount(json.getString("likeCount"));
 
 				// add the app to apps list
 				apps.add(app);

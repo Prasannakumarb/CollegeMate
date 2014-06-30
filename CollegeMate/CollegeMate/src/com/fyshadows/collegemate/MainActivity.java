@@ -4,7 +4,6 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -17,7 +16,6 @@ import android.os.StrictMode;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -25,16 +23,18 @@ import android.widget.Toast;
 public class MainActivity extends ListActivity implements FetchDataListener {
 	public static String strTitle = "0", strCategory = "0",
 			strDescription = "0", strTime = "0", strDid = "0";
-	final String usId = "cm_001";
-	final int likeStatus = 1;
+	Collegemate_DB db = new Collegemate_DB(this);
+	int likeStatus = 1;
 	private ProgressDialog dialog;
+	public static String usId=null;
 	ImageButton imgButton;
-	final List<DiscussionList> items = new ArrayList<DiscussionList>();
+	List<DiscussionList> items = new ArrayList<DiscussionList>();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_list_forum_topics);
+		usId = db.getCurrentuserId();
 		initView();
 
 		if (android.os.Build.VERSION.SDK_INT > 9) {
@@ -42,7 +42,6 @@ public class MainActivity extends ListActivity implements FetchDataListener {
 					.permitAll().build();
 			StrictMode.setThreadPolicy(policy);
 		}
-
 		/*
 		 * On click listener to get values from DiscussionList class and send it
 		 * to another activity when clicking on the list item
@@ -86,6 +85,7 @@ public class MainActivity extends ListActivity implements FetchDataListener {
 
 		String url = "http://fyshadows.com/CollegeMate/Collegemate_listForumData.php?currentUser_id="
 				+ usId;
+		Log.i("Fetch Url : ", url);
 		FetchDataTask task = new FetchDataTask(this);
 		task.execute(url);
 	}
@@ -121,13 +121,10 @@ public class MainActivity extends ListActivity implements FetchDataListener {
 		try {
 			String likeUrl = "http://fyshadows.com/CollegeMate/Collegemate_creatediscussionlike.php?discId="
 					+ dId + "&userId=" + usId + "&like_status=" + likeStatus;
-
 			HttpClient client = new DefaultHttpClient();
 			HttpGet request = new HttpGet();
 			request.setURI(new URI(likeUrl));
-			HttpResponse response = client.execute(request);
-			ForumAdapter adapter = new ForumAdapter(null, items);
-			adapter.notifyDataSetChanged();
+			client.execute(request);
 
 		} catch (Exception e) {
 			e.printStackTrace();

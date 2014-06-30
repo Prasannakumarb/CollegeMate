@@ -91,6 +91,26 @@
             android:textColor="#908484"
             android:layout_marginTop="5dp"
             android:layout_marginRight="10dp" />
+
+        <TextView
+            android:id="@+id/commentsCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/dscCategory"
+            android:layout_alignRight="@+id/dscDiscId"
+            android:textSize="12sp"
+            android:text="4 C" />
+
+        <TextView
+            android:id="@+id/likesCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_alignTop="@+id/commentsCount"
+            android:layout_toLeftOf="@+id/commentsCount"
+            android:textSize="12sp"
+            android:text="4 L" />
+
     </RelativeLayout>
 
 </RelativeLayout>

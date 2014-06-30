@@ -10,6 +10,8 @@ public class DiscussionList {
     private String time;
     private String discId;
     private String like_Status;
+	private String commCount;
+	private String likeCount;
      
     public String getTitle() {
         return title;
@@ -46,6 +48,20 @@ public class DiscussionList {
 	}
 	public void setLikeStatus(String like_status){
 		this.like_Status = like_status;
+	}
+	public String getCommCount() {
+		return commCount;
+	}
+	public void setCommCount(String commCount) {
+		this.commCount = commCount;
+		
+	}
+	public String getLikeCount() {
+		return likeCount;
+	}
+	public void setLikeCount(String likeCount) {
+		this.likeCount = likeCount;
+		
 	}
 
 }

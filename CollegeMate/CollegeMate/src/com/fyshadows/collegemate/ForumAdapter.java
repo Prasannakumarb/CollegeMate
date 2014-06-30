@@ -3,8 +3,6 @@ package com.fyshadows.collegemate;
 import java.util.List;
 
 import android.content.Context;
-import android.content.res.ColorStateList;
-import android.content.res.XmlResourceParser;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,14 +39,11 @@ public class ForumAdapter extends ArrayAdapter<DiscussionList> {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		ViewHolder holder;
 		View v = convertView;
 
 		if (v == null) {
 			LayoutInflater li = LayoutInflater.from(getContext());
 			v = li.inflate(R.layout.custom_list, null);
-		} else {
-			holder = (ViewHolder) convertView.getTag();
 		}
 
 		DiscussionList app = items.get(position);
@@ -61,8 +56,13 @@ public class ForumAdapter extends ArrayAdapter<DiscussionList> {
 			TextView timeText = (TextView) v.findViewById(R.id.dscTime);
 			TextView idText = (TextView) v.findViewById(R.id.dscDiscId);
 			final TextView likeText = (TextView) v.findViewById(R.id.likeText1);
+			TextView comm_Count = (TextView) v.findViewById(R.id.commentsCount);
+			TextView like_Count = (TextView) v.findViewById(R.id.likesCount);
+			
 			String like_Status = app.getLikeStatus();
-
+			String commCount = app.getCommCount();
+			String likeCount = app.getLikeCount();
+			
 			titleText.setText(app.getTitle());
 			categoryText.setText(app.getCategory());
 			descriptionText.setText(app.getDescription());
@@ -77,6 +77,8 @@ public class ForumAdapter extends ArrayAdapter<DiscussionList> {
 				final int like_text_color = v.getResources().getColor(R.color.likeTextColor);
 				((TextView) v.findViewById(R.id.likeText1)).setTextColor(like_text_color);
 			}
+			comm_Count.setText(commCount+" C");
+			like_Count.setText(likeCount+" L");
 
 			final String dId = app.getDiscId();
 
@@ -86,10 +88,7 @@ public class ForumAdapter extends ArrayAdapter<DiscussionList> {
 			likeText.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View view) {
-					final Integer myposition = (Integer) view.getTag();
-					// Toast.makeText(getContext(), "" + dId,
-					// Toast.LENGTH_SHORT)
-					// .show();
+					//final Integer myposition = (Integer) view.getTag();
 					likeText.setText("Liked");
 					final int like_text_color = view.getResources().getColor(R.color.likeTextColor);
 					((TextView) view.findViewById(R.id.likeText1)).setTextColor(like_text_color);

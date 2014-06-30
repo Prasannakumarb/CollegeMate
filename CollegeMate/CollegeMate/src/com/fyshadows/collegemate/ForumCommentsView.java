@@ -4,7 +4,6 @@ import java.net.URI;
 import java.net.URLEncoder;
 import java.util.List;
 
-import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -12,6 +11,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
@@ -20,7 +20,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 public class ForumCommentsView extends ListActivity implements FetchCommentsListener{
-	
+	Collegemate_DB db = new Collegemate_DB(this);
 	private ProgressDialog dialog;
 
 	@Override
@@ -53,7 +53,7 @@ public class ForumCommentsView extends ListActivity implements FetchCommentsList
 	}
 	
 	private void pushDataComment(String valDid) {
-		final String usId = "cm0011";
+		String usID1 = db.getCurrentuserId();
 		String commentDesc;
 		commentDesc = ((EditText) findViewById(R.id.commentEditText)).getText()
 				.toString();
@@ -62,14 +62,14 @@ public class ForumCommentsView extends ListActivity implements FetchCommentsList
 			String commentUrl = "http://fyshadows.com/CollegeMate/Collegemate_creatediscussioncomment.php?discId="
 					+ valDid
 					+ "&userId="
-					+ usId
+					+ usID1
 					+ "&comment_desc="
 					+ commentDesc;
 
 			HttpClient client = new DefaultHttpClient();
 			HttpGet request = new HttpGet();
 			request.setURI(new URI(commentUrl));
-			HttpResponse response = client.execute(request);
+			client.execute(request);
 			Toast.makeText(getApplicationContext(), "Comment Submitted",
 					Toast.LENGTH_LONG).show();
 			((EditText) findViewById(R.id.commentEditText)).setText("");

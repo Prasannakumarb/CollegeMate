@@ -23,10 +23,11 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 public class DiscussionForumHome extends ActionBarActivity {
-	
+	Collegemate_DB db = new Collegemate_DB(this);
 	String discTitle = null;
 	String discCategory = null;
 	String discDescription = null;
+	String currUserId = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +90,7 @@ public class DiscussionForumHome extends ActionBarActivity {
 				.getText().toString();
 		discDescription = ((EditText) findViewById(R.id.discussion_descriptioneditText))
 				.getText().toString();
+		currUserId = db.getCurrentuserId();
 		try {
 			discTitle = URLEncoder.encode(discTitle, "UTF-8");
 			discCategory = URLEncoder.encode(discCategory, "UTF_8");
@@ -98,7 +100,9 @@ public class DiscussionForumHome extends ActionBarActivity {
 					+ "&discCategory="
 					+ discCategory
 					+ "&discDescription="
-					+ discDescription;
+					+ discDescription
+					+ "&currentUserID="
+					+ currUserId;
 
 			Log.i("a", link);
 			HttpClient client = new DefaultHttpClient();
