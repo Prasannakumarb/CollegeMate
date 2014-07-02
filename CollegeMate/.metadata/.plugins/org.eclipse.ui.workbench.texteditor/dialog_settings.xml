@@ -13,16 +13,16 @@
 		<item value="false" key="isRegEx"/>
 		<item value="false" key="incremental"/>
 		<item value="false" key="wholeword"/>
-		<item value="current" key="selection"/>
+		<item value="Message" key="selection"/>
 		<list key="findhistory">
-			<item value="current"/>
-			<item value="c0005"/>
-			<item value="getReadableDatabase"/>
-			<item value="SQLiteDatabase"/>
-			<item value="check"/>
-			<item value="year"/>
-			<item value="clear"/>
-			<item value="pDialog"/>
+			<item value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;"/>
+			<item value="message"/>
+			<item value="getchat("/>
+			<item value="getchat()"/>
+			<item value="getchat"/>
+			<item value="formatDate"/>
+			<item value="ArrayAdapter"/>
+			<item value="addChat"/>
 		</list>
 		<list key="replacehistory">
 			<item value="college_id"/>

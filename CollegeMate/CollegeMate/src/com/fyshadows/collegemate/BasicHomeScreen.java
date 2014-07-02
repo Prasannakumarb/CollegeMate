@@ -102,4 +102,12 @@ public class BasicHomeScreen extends ActionBarActivity {
 		// Fire that second activity
 		startActivity(i);
 	}
+	
+	
+	public void viewnotification(View view) {
+
+		Intent i = new Intent(this, ViewNotification.class);
+		// Fire that second activity
+		startActivity(i);
+	}
 }

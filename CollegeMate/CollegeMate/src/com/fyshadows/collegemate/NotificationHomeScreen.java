@@ -2,8 +2,10 @@ package com.fyshadows.collegemate;
 
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +21,7 @@ import org.json.JSONObject;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v4.app.Fragment;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -72,8 +75,23 @@ public class NotificationHomeScreen extends ActionBarActivity  implements OnItem
 		
 		spinnerDepart= (Spinner) findViewById(R.id.spindepart);
 		departList = new ArrayList<Departmentdetails>();
+		
+		getActionBar().setDisplayHomeAsUpEnabled(true);
 	}
 
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case android.R.id.home:
+			// app icon in action bar clicked; go home
+			Intent intent = new Intent(this, BasicHomeScreen.class);
+			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			startActivity(intent);
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
+	}
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -82,17 +100,7 @@ public class NotificationHomeScreen extends ActionBarActivity  implements OnItem
 		return true;
 	}
 
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
-	}
+
 
 	/**
 	 * A placeholder fragment containing a simple view.
@@ -305,8 +313,14 @@ public class NotificationHomeScreen extends ActionBarActivity  implements OnItem
 			String year = spinneryear.getSelectedItem().toString().substring(0, 1);
              String colid=db.getCollegeId();
              String message  = ((EditText)findViewById(R.id.editText_msg)).getText().toString();
-Log.i("sad","dsf"+ colid);
-			String link="http://fyshadows.com/CollegeMate/send_notification.php?collegeid="+colid.trim()+"&course="+course.trim()+"&department="+depart.trim()+"&message="+message.trim();
+try {
+	message=URLEncoder.encode(message, "UTF-8");
+} catch (UnsupportedEncodingException e1) {
+	// TODO Auto-generated catch block
+	e1.printStackTrace();
+}
+String userid=db.getCurrentuserId();
+			String link="http://fyshadows.com/CollegeMate/send_notification.php?collegeid="+colid.trim()+"&course="+course.trim()+"&department="+depart.trim()+"&message="+message.trim()+"&userid="+userid.trim();
 			Log.i("URL",link);
 			HttpClient client = new DefaultHttpClient();
 	        HttpGet request = new HttpGet();

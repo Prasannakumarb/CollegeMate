@@ -1,0 +1,33 @@
+package com.fyshadows.collegemate;
+
+public class notificationtable {
+	
+	
+	
+	private  String _notificationid;
+		
+	private String _notification_message;
+
+
+		static boolean isStatusMessage;
+
+		 
+		 
+		public notificationtable( String notificationid,String notification_message) {
+			super();
+			this._notification_message=notification_message;
+			this._notificationid=notificationid;
+			
+		}
+		
+		public String getMessage() {
+				return this._notification_message;
+			}
+		
+		public  String notificationid() {
+			return this._notificationid;
+		}
+		
+		
+
+}

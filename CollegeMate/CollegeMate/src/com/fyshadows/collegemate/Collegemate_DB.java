@@ -24,13 +24,16 @@ public class Collegemate_DB extends SQLiteOpenHelper  {
 		
 		   myDB.execSQL("CREATE TABLE cm_mob_masteruserdetails(user_id varchar(100) PRIMARY KEY,GCM_registration_id TEXT,user_NAME TEXT,dob varchar(100),sex CHAR(50),"
 				+"mail_id varchar(100),mob_no varchar(100),city varchar(100),yearofjoining varchar(100),college_id varchar(100),college_name varchar(200),"
-				+ "department_id varchar(100),department_name varchar(100),course_name varchar(100),course_id varchar(100),flag char(10),timestamp varchar(100));");	
+				+ "department_id varchar(100),department_name varchar(100),course_name varchar(100),course_id varchar(100),flag char(10),timestamp  REAL DEFAULT (datetime('now','localtime')));");	
 		   
 		   myDB.execSQL( "CREATE TABLE cm_mob_Friendinfo(id INTEGER PRIMARY KEY,user_id varchar(100) ,"
 				   +"user_NAME varchar(100)   , image_path  varchar(250),"
-				+"online varchar(10),timestamp varchar(100),newmsgcount INTEGER"
+				+"online varchar(10),timestamp  REAL DEFAULT (datetime('now','localtime')),newmsgcount INTEGER"
 				+");");
 		   myDB.execSQL("CREATE TABLE cm_mob_chat(id INTEGER PRIMARY KEY, user_id varchar(100) ,Chat_Text varchar,Mine int,sent int,"
+					+ "timestamp REAL DEFAULT (datetime('now','localtime')));");
+		   
+		   myDB.execSQL("CREATE TABLE cm_mob_notification(id INTEGER PRIMARY KEY, notificationid varchar(100) ,notification_message varchar(1000),"
 					+ "timestamp REAL DEFAULT (datetime('now','localtime')));");	
 		               
 	}
@@ -179,6 +182,27 @@ public Long addChat(MessageTable MessageTable) {
    // Closing database connection
   }
 
+//insert notification
+//Storing chat table into mobile db
+public Long addnotification(notificationtable notificationtable) {
+
+		
+SQLiteDatabase db = this.getWritableDatabase();
+
+ContentValues values = new ContentValues();
+values.put("notificationid " , notificationtable.getnotificationid()); 
+values.put("notification_message",notificationtable.getMessage());
+  
+
+// Inserting Row
+long rowid= db.insert("cm_mob_notification", null, values);
+Log.d("a: ", Long.toString(rowid));
+Log.d("a: ", "done Storing ..");
+db.close();
+return rowid;
+ // Closing database connection
+}
+
 //Getting the current user user id
 public String getCurrentuserId(){
 
@@ -228,7 +252,7 @@ public String getCollegeId(){
 //Getting ID value if present
 public String CheckId(String id){
 
-  String selectQuery = "SELECT user_id FROM cm_mob_Friendinfo WHERE  user_id="+Integer.valueOf(id.trim()); 
+  String selectQuery = "SELECT user_id FROM cm_mob_Friendinfo WHERE  user_id='"+id.trim()+"'"; 
 Log.i("query",selectQuery);
   SQLiteDatabase db = this.getReadableDatabase();
   Cursor cursor = db.rawQuery(selectQuery, null);
@@ -290,6 +314,50 @@ Log.i("into",selectQuery);
 	  db.close();
 	  return list;
 }
+
+
+//Getting the chat from table of the user
+public List<notificationtable>  Getnotitification(){
+	List<notificationtable> list  = new ArrayList<notificationtable>();
+	  String selectQuery = "SELECT notificationid,notification_message ,timestamp FROM cm_mob_notification order by timestamp desc"; 
+    Log.i("into","into get notifiction");
+     Log.i("into",selectQuery);
+	  SQLiteDatabase db = this.getReadableDatabase();
+	  Cursor cursor = db.rawQuery(selectQuery, null);
+
+	  if (cursor.moveToFirst())
+	  {
+	Log.i("f","not null");
+	  int notificationmessage = cursor.getColumnIndex("notification_message");
+	  int timestamp = cursor.getColumnIndex("timestamp");
+	  int notificationid = cursor.getColumnIndex("notificationid");
+	  
+	 
+	 // cursor.moveToFirst();
+	  if (cursor != null) {
+	      do {
+	    	  Log.i("f","into cursor");
+	    	  Log.i("f",cursor.getString(notificationmessage));
+	          String notification_message = cursor.getString(notificationmessage);
+	          String time_stamp= cursor.getString(timestamp);  
+	          String notification_id= cursor.getString(notificationid); 
+	          list.add(getnot(notification_message,time_stamp,notification_id));
+	        
+	         
+	      } while (cursor.moveToNext());
+	  }
+	
+	  
+	  
+	  }
+	  db.close();
+	  return list;
+}
+
+private notificationtable getnot(String message,String timestamp, String notificationid) {
+	 return new notificationtable(notificationid,message,timestamp);
+}
+
 //Getting friend info from the mobile database
 List<FriendInfoTable>  getFriendDetails() {
 	List<FriendInfoTable> list  = new ArrayList<FriendInfoTable>();
@@ -344,7 +412,7 @@ if(check.trim().equalsIgnoreCase("add"))
 {
  String sql = "UPDATE cm_mob_Friendinfo " + 
          " SET newmsgcount=newmsgcount+1 " +
-         " WHERE  user_id   = " + userid.trim();
+         " WHERE  user_id   = '" + userid.trim()+"'";
  Log.i("collegedb",sql);
  db.execSQL(sql);
 }
@@ -352,7 +420,7 @@ else
 {
 	 String sql = "UPDATE cm_mob_Friendinfo " + 
 	         " SET newmsgcount=0 " +
-	         " WHERE  user_id   = " + userid.trim();
+	         " WHERE  user_id   = '" + userid.trim()+"'";
 	 Log.i("collegedb",sql);
 	 db.execSQL(sql);
 	
@@ -380,6 +448,8 @@ private FriendInfoTable get(String id, String name, String path,int msgcount) {
 private MessageTable get1(String user_id,String Chat_Text,int IsMine,int sent,String time_stamp) {
 	 return new MessageTable(user_id,Chat_Text,IsMine,sent,time_stamp);
 }
+
+
 
 public void deleteChat(String uid) {
     SQLiteDatabase db = this.getWritableDatabase();
