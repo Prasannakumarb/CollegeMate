@@ -1,0 +1,157 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.fyshadows.collegemate.RegistrationAdmin"
+    tools:ignore="MergeRootFrame" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/Name"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:text="@string/name" />
+
+            <TextView
+                android:id="@+id/email"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:text="@string/email" />
+
+            <TextView
+                android:id="@+id/DOB"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:text="@string/dob" />
+
+            <TextView
+                android:id="@+id/sex"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:text="@string/sex" />
+
+            <TextView
+                android:id="@+id/Phonenum"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:text="@string/phone" />
+
+            <TextView
+                android:id="@+id/CityIn"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:text="@string/cityin" />
+            
+            <TextView
+                android:id="@+id/selectPic"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:text="@string/selectPic" />
+            
+            
+           
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="0.46"
+            android:orientation="vertical" >
+
+            <EditText
+                android:id="@+id/editText_name"
+                android:layout_width="match_parent"
+                android:layout_height="35dp" >
+
+                <requestFocus />
+            </EditText>
+
+            <EditText
+                android:id="@+id/editText_email"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:inputType="textEmailAddress" >
+            </EditText>
+
+            <EditText
+                android:id="@+id/editText_age"
+                android:layout_width="match_parent"
+                android:layout_height="35dp" 
+                android:inputType="phone"
+                >
+            </EditText>
+
+          <RadioGroup
+        android:id="@+id/radioGroup1"
+        android:layout_width="wrap_content"
+         android:layout_height="35dp" 
+        android:orientation="horizontal" >
+
+        <RadioButton
+            android:id="@+id/radio1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/male"
+            android:textColor="#595652" />
+
+        <RadioButton
+            android:id="@+id/radio2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/female"
+            android:textColor="#595652" />
+    </RadioGroup>
+
+            <EditText
+                android:id="@+id/editText_phone"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:inputType="phone" >
+            </EditText>
+            
+             <EditText
+                android:id="@+id/editText_cityIn"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+               
+                >
+            </EditText>
+
+            <Button
+                android:id="@+id/selpic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/Browse" 
+                 android:onClick="SelectImage" 
+                />
+
+            <ImageView
+                android:id="@+id/imageView1"
+                
+                android:src="@drawable/nophotoavailable"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                 />
+
+            <Button
+                android:id="@+id/Registeradmin"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:onClick="register"
+                android:text="@string/Registeradmin" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+</FrameLayout>
+

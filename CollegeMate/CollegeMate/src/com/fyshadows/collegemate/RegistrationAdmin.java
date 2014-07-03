@@ -64,30 +64,27 @@ import android.os.Build;
 import android.provider.MediaStore;
 
 public class RegistrationAdmin extends ActionBarActivity {
-	
+
 	// Global Declaration
-	    private int serverResponseCode = 0;
-	    private ProgressDialog dialog = null;
-	    private String imagepath = null;
-	    private static final int SELECT_PHOTO = 100;
-	   
-	    private String user_id=null;
-	    
-	    String	name  = null; 
-		String	phone = null; 
-		String	email  = null; 
-		String	dob  = null; 
-		String	Cityin = null; 
-		String role= null;
-		 String regId=null;
-		
-		  String Selected_sex="Male";
-		  
-		 
-		
-		
-		 
-	    Collegemate_DB db = new Collegemate_DB(this);
+	private int serverResponseCode = 0;
+	private ProgressDialog dialog = null;
+	private String imagepath = null;
+	private static final int SELECT_PHOTO = 100;
+
+	private String user_id = null;
+
+	String name = null;
+	String phone = null;
+	String email = null;
+	String dob = null;
+	String Cityin = null;
+	String role = null;
+	String regId = null;
+
+	String Selected_sex = "Male";
+
+	Collegemate_DB db = new Collegemate_DB(this);
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -98,19 +95,18 @@ public class RegistrationAdmin extends ActionBarActivity {
 			getSupportFragmentManager().beginTransaction()
 					.add(R.id.container, new PlaceholderFragment()).commit();
 		}
+
+		if (android.os.Build.VERSION.SDK_INT > 9) {
+			StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+					.permitAll().build();
+			StrictMode.setThreadPolicy(policy);
+		}
+		// Get the bundle--This contains the role selected in previous activity
+
+		// Extract the data needed
 		
-		 if (android.os.Build.VERSION.SDK_INT > 9) {
-	            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-	            StrictMode.setThreadPolicy(policy);
-	          }
-		//Get the bundle--This contains the role selected in previous activity
-		  
-		    //Extract the data needed
-		 Bundle bundle = getIntent().getExtras();
-		     role = bundle.getString("role"); 
-		    
-		     
-		   
+		role = "admin";
+		getActionBar().setDisplayHomeAsUpEnabled(true);
 	}
 
 	@Override
@@ -123,14 +119,16 @@ public class RegistrationAdmin extends ActionBarActivity {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
+		switch (item.getItemId()) {
+		case android.R.id.home:
+			// app icon in action bar clicked; go home
+			Intent intent = new Intent(this, Common_Entry.class);
+			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			startActivity(intent);
 			return true;
+		default:
+			return super.onOptionsItemSelected(item);
 		}
-		return super.onOptionsItemSelected(item);
 	}
 
 	/**
@@ -149,345 +147,353 @@ public class RegistrationAdmin extends ActionBarActivity {
 			return rootView;
 		}
 	}
-	
-	
+
 	public void register(View view) {
-		
-	    Bitmap bmImg = null;
-	    InputStream inputStream = null ;
-		RadioGroup rg1=(RadioGroup)findViewById(R.id.radioGroup1);
-		//Getting the user input and storing into variables
-		name   = ((EditText)findViewById(R.id.editText_name)).getText().toString();
-		phone = ((EditText)findViewById(R.id.editText_phone)).getText().toString();
-		email   = ((EditText)findViewById(R.id.editText_email)).getText().toString();
-		dob = ((EditText)findViewById(R.id.editText_age)).getText().toString();
-		Cityin=((EditText)findViewById(R.id.editText_cityIn)).getText().toString();
-		if(rg1.getCheckedRadioButtonId()!=-1){
-		    int id= rg1.getCheckedRadioButtonId();
-		    View radioButton = rg1.findViewById(id);
-		    int radioId = rg1.indexOfChild(radioButton);
-		    RadioButton btn = (RadioButton) rg1.getChildAt(radioId);
-		     Selected_sex = (String) btn.getText();
-		     Log.i("Selected_sex",Selected_sex);
+
+		Bitmap bmImg = null;
+		InputStream inputStream = null;
+		RadioGroup rg1 = (RadioGroup) findViewById(R.id.radioGroup1);
+		// Getting the user input and storing into variables
+		name = ((EditText) findViewById(R.id.editText_name)).getText()
+				.toString();
+		phone = ((EditText) findViewById(R.id.editText_phone)).getText()
+				.toString();
+		email = ((EditText) findViewById(R.id.editText_email)).getText()
+				.toString();
+		dob = ((EditText) findViewById(R.id.editText_age)).getText().toString();
+		Cityin = ((EditText) findViewById(R.id.editText_cityIn)).getText()
+				.toString();
+		if (rg1.getCheckedRadioButtonId() != -1) {
+			int id = rg1.getCheckedRadioButtonId();
+			View radioButton = rg1.findViewById(id);
+			int radioId = rg1.indexOfChild(radioButton);
+			RadioButton btn = (RadioButton) rg1.getChildAt(radioId);
+			Selected_sex = (String) btn.getText();
+			Log.i("Selected_sex", Selected_sex);
 		}
-		 regId = GCMRegistrar.getRegistrationId(this);
+		/*
+		regId = GCMRegistrar.getRegistrationId(this);
 		try {
-	        String link =  "http://fyshadows.com/CollegeMate/collegemate_adminregistration.php?name="+name+"&phone="+phone+"&email="+email+"&dob="+dob+"&sex="+Selected_sex+"&role="+role+"&Cityin="+Cityin+"&regid="+regId;
-	        Log.i("a",link);
-	        HttpClient client = new DefaultHttpClient();
-	        HttpGet request = new HttpGet();
-	        request.setURI(new URI(link)); 
-	        HttpResponse response = client.execute(request); 
-	        BufferedReader in = new BufferedReader
-	                (new InputStreamReader(response.getEntity().getContent()));
+			String link = "http://fyshadows.com/CollegeMate/collegemate_adminregistration.php?name="
+					+ name
+					+ "&phone="
+					+ phone
+					+ "&email="
+					+ email
+					+ "&dob="
+					+ dob
+					+ "&sex="
+					+ Selected_sex
+					+ "&role="
+					+ role
+					+ "&Cityin=" + Cityin + "&regid=" + regId;
+			Log.i("a", link);
+			HttpClient client = new DefaultHttpClient();
+			HttpGet request = new HttpGet();
+			request.setURI(new URI(link));
+			HttpResponse response = client.execute(request);
+			BufferedReader in = new BufferedReader(new InputStreamReader(
+					response.getEntity().getContent()));
 
-	                StringBuffer sb = new StringBuffer("");
-	                String line="";
-	                while ((line = in.readLine()) != null) {
-	                   sb.append(line);
-	                   break;
-	                 }
-	                 in.close();
-	                 user_id=sb.toString();
-	               
-	       
-	        Toast.makeText(RegistrationAdmin.this, "Registration successfull" + sb.toString(),Toast.LENGTH_LONG).show();
-	    }catch(Exception e){
-	        e.printStackTrace();
-	    	Toast.makeText(RegistrationAdmin.this, "Registration Unsuccessfull",Toast.LENGTH_LONG).show();
-	     }
-		
-	 
-		
-// TO execute image upload in back ground
-new AsyncTaskEx().execute();
-Intent i = new Intent(this,AdminCollegeregistraton.class );
-Bundle bundle = new Bundle();
-//Add your data to bundle
-bundle.putString("user_id", user_id);  
-//Add the bundle to the intent
-i.putExtras(bundle);
+			StringBuffer sb = new StringBuffer("");
+			String line = "";
+			while ((line = in.readLine()) != null) {
+				sb.append(line);
+				break;
+			}
+			in.close();
+			user_id = sb.toString();
 
-//Fire that second activity
- startActivity(i);  
+			Toast.makeText(RegistrationAdmin.this,
+					"Registration successfull" + sb.toString(),
+					Toast.LENGTH_LONG).show();
+		} catch (Exception e) {
+			e.printStackTrace();
+			Toast.makeText(RegistrationAdmin.this,
+					"Registration Unsuccessfull", Toast.LENGTH_LONG).show();
+		}*/
+
+		// TO execute image upload in back ground
+		//new AsyncTaskEx().execute();
+		Intent i = new Intent(this, AdminCollegeregistraton.class);
+		Bundle bundle = new Bundle();
+		bundle.putString("name", name);
+		bundle.putString("phone", phone);
+		bundle.putString("email", email);
+		bundle.putString("dob", dob);
+		bundle.putString("Selected_sex", Selected_sex);
+		bundle.putString("role", role);
+		bundle.putString("Cityin", Cityin);
+		bundle.putString("imagepath", imagepath);
+
+		i.putExtras(bundle);
+
+		// Fire that second activity
+		startActivity(i);
 	}
-	
-//For selecting the image from gallery
+
+	// For selecting the image from gallery
 	public void SelectImage(View view) {
-		//Intent intent = new Intent();
-        //intent.setType("image/*");
-        //intent.setAction(Intent.ACTION_GET_CONTENT);
-        //startActivityForResult(
-          //      Intent.createChooser(intent, "Complete action using"), 1);
+		// Intent intent = new Intent();
+		// intent.setType("image/*");
+		// intent.setAction(Intent.ACTION_GET_CONTENT);
+		// startActivityForResult(
+		// Intent.createChooser(intent, "Complete action using"), 1);
 		Intent sdintent = new Intent(Intent.ACTION_PICK);
 		sdintent.setType("image/*");
-		startActivityForResult(sdintent, SELECT_PHOTO); 
+		startActivityForResult(sdintent, SELECT_PHOTO);
 
 	}
-	
-	 @Override
-	    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		 super.onActivityResult(requestCode, resultCode, data); 
-Log.i("a","i am into acitvity result");
-	        if (resultCode == RESULT_OK) {
-	            // Bitmap photo = (Bitmap) data.getData().getPath();
-	        	Log.i("a","Got the result code");
-	            Uri selectedImageUri = data.getData();
-	             imagepath = getPath(selectedImageUri);
-	             Log.i("a",imagepath);
-	            Bitmap bitmap = BitmapFactory.decodeFile(imagepath);
-	            ImageView imageview = (ImageView)findViewById(R.id.imageView1);
-	            imageview.setImageBitmap(bitmap);
-	            
-//storing image as bitmap
-	            ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-	            bitmap.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
 
-	            //you can create a new file name "test.jpg" in sdcard folder.
-	            File f = new File(Environment.getExternalStorageDirectory()+ "/collegemate/Profilepic"
-                        + File.separator + "myprofpic.jpg");
-	          
-	            try {
-					f.createNewFile();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-	          
-	            //write the bytes in file
-	            FileOutputStream fo=null;
-				try {
-					fo = new FileOutputStream(f);
-				} catch (FileNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-	            try {
-					fo.write(bytes.toByteArray());
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		Log.i("a", "i am into acitvity result");
+		if (resultCode == RESULT_OK) {
+			// Bitmap photo = (Bitmap) data.getData().getPath();
+			Log.i("a", "Got the result code");
+			Uri selectedImageUri = data.getData();
+			imagepath = getPath(selectedImageUri);
+			Log.i("a", imagepath);
+			Bitmap bitmap = BitmapFactory.decodeFile(imagepath);
+			ImageView imageview = (ImageView) findViewById(R.id.imageView1);
+			imageview.setImageBitmap(bitmap);
 
-	            // remember close de FileOutput
-	            try {
-					fo.close();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-	            
-	           
-	            
-	        }
-	    }
-	           
-	
-	public String getPath(Uri uri) {
-	        String[] projection = { MediaStore.Images.Media.DATA };
-			@SuppressWarnings("deprecation")
-			Cursor cursor = managedQuery(uri, projection, null, null, null);
-	        int column_index = cursor
-	                .getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-	        cursor.moveToFirst();
-	        return cursor.getString(column_index);
-	    }
-	           
-// This task will be called to store the images in back ground	
-	private class AsyncTaskEx extends AsyncTask<Void, Void, Void> {
-		
-		protected void  onPreExecute(){
-			
-			
-			
-			Log.d("a","into async pre execute");
-			db.registeradmin(new Masterusertable(user_id,name,dob,Selected_sex,email,phone,Cityin,role)); 
-			
-		
-			
+			// storing image as bitmap
+			ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+			bitmap.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
+
+			// you can create a new file name "test.jpg" in sdcard folder.
+			File f = new File(Environment.getExternalStorageDirectory()
+					+ "/collegemate/Profilepic" + File.separator
+					+ "myprofpic.jpg");
+
+			try {
+				f.createNewFile();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+			// write the bytes in file
+			FileOutputStream fo = null;
+			try {
+				fo = new FileOutputStream(f);
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			try {
+				fo.write(bytes.toByteArray());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+			// remember close de FileOutput
+			try {
+				fo.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
 		}
-		
-
-	    /** The system calls this to perform work in a worker thread and
-	    * delivers it the parameters given to AsyncTask.execute() */
-	    protected Void doInBackground(Void... arg0) {
-	    	Log.d("a","into background");
-	    	Log.i("c","into background");
-	    	uploadFile(imagepath);
-	        return null;
-	    }
 	}
+
+	public String getPath(Uri uri) {
+		String[] projection = { MediaStore.Images.Media.DATA };
+		@SuppressWarnings("deprecation")
+		Cursor cursor = managedQuery(uri, projection, null, null, null);
+		int column_index = cursor
+				.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+		cursor.moveToFirst();
+		return cursor.getString(column_index);
+	}
+/**
+	// This task will be called to store the images in back ground
+	private class AsyncTaskEx extends AsyncTask<Void, Void, Void> {
+
+		protected void onPreExecute() {
+
+			Log.d("a", "into async pre execute");
+			db.registeradmin(new Masterusertable(user_id, name, dob,
+					Selected_sex, email, phone, Cityin, role));
+
+		}
+
+		/**
+		 * The system calls this to perform work in a worker thread and delivers
+		 * it the parameters given to AsyncTask.execute()
+		 
+		protected Void doInBackground(Void... arg0) {
+			Log.d("a", "into background");
+			Log.i("c", "into background");
+			uploadFile(imagepath);
+			return null;
+		}
+	}
+
 	public int uploadFile(String sourceFileUri) {
 
-        String fileName = sourceFileUri;
+		String fileName = sourceFileUri;
 
-        HttpURLConnection conn = null;
-        DataOutputStream dos = null;
-        String lineEnd = "\r\n";
-        String twoHyphens = "--";
-        String boundary = "*****";
-        int bytesRead, bytesAvailable, bufferSize;
-        byte[] buffer;
-        int maxBufferSize = 1 * 1024 * 1024;
-        File sourceFile = new File(sourceFileUri);
+		HttpURLConnection conn = null;
+		DataOutputStream dos = null;
+		String lineEnd = "\r\n";
+		String twoHyphens = "--";
+		String boundary = "*****";
+		int bytesRead, bytesAvailable, bufferSize;
+		byte[] buffer;
+		int maxBufferSize = 1 * 1024 * 1024;
+		File sourceFile = new File(sourceFileUri);
 
-        if (!sourceFile.isFile()) {
+		if (!sourceFile.isFile()) {
 
-            dialog.dismiss();
+			dialog.dismiss();
 
-            Log.e("uploadFile", "Source File not exist :" + imagepath);
+			Log.e("uploadFile", "Source File not exist :" + imagepath);
 
-            runOnUiThread(new Runnable() {
-                public void run() {
-                   
-                }
-            });
+			runOnUiThread(new Runnable() {
+				public void run() {
 
-            return 0;
+				}
+			});
 
-        } else {
-            try {
+			return 0;
 
-                // open a URL connection to the 
-                FileInputStream fileInputStream = new FileInputStream(
-                        sourceFile);
-                //URl which is used to upload the image and store the path in DB
-       		String upLoadServerUri = "http://fyshadows.com/CollegeMate/Collegemate_Imageupload.php?title=" + user_id;
-                URL url = new URL(upLoadServerUri);
-                Log.i("a",upLoadServerUri);
+		} else {
+			try {
 
-                // Open a HTTP connection to the URL
-                conn = (HttpURLConnection) url.openConnection();
-                conn.setDoInput(true); // Allow Inputs
-                conn.setDoOutput(true); // Allow Outputs
-                conn.setUseCaches(false); // Don't use a Cached Copy
-                conn.setRequestMethod("POST");
-                conn.setRequestProperty("Connection", "Keep-Alive");
-               // conn.setChunkedStreamingMode(maxBufferSize);
-              conn.setRequestProperty("ENCTYPE", "multipart/form-data");
-              conn.setRequestProperty("userid", user_id);
-                conn.setRequestProperty("Content-Type",
-                        "multipart/form-data;boundary=" + boundary);
-                conn.setRequestProperty("uploaded_file", fileName);
-               // conn.setRequestProperty("uploadname", user_id);
-            Log.i("s",fileName);
-                dos = new DataOutputStream(conn.getOutputStream());
+				// open a URL connection to the
+				FileInputStream fileInputStream = new FileInputStream(
+						sourceFile);
+				// URl which is used to upload the image and store the path in
+				// DB
+				String upLoadServerUri = "http://fyshadows.com/CollegeMate/Collegemate_Imageupload.php?title="
+						+ user_id;
+				URL url = new URL(upLoadServerUri);
+				Log.i("a", upLoadServerUri);
 
-Log.i("c","1");
-                
-                
-               //to send image
-                dos.writeBytes(twoHyphens + boundary + lineEnd);
-                dos.writeBytes("Content-Disposition: form-data; name=\"uploaded_file\";filename=\""
-                        + fileName + "\"" + lineEnd );
-                dos.writeBytes(lineEnd);
-                
+				// Open a HTTP connection to the URL
+				conn = (HttpURLConnection) url.openConnection();
+				conn.setDoInput(true); // Allow Inputs
+				conn.setDoOutput(true); // Allow Outputs
+				conn.setUseCaches(false); // Don't use a Cached Copy
+				conn.setRequestMethod("POST");
+				conn.setRequestProperty("Connection", "Keep-Alive");
+				// conn.setChunkedStreamingMode(maxBufferSize);
+				conn.setRequestProperty("ENCTYPE", "multipart/form-data");
+				conn.setRequestProperty("userid", user_id);
+				conn.setRequestProperty("Content-Type",
+						"multipart/form-data;boundary=" + boundary);
+				conn.setRequestProperty("uploaded_file", fileName);
+				// conn.setRequestProperty("uploadname", user_id);
+				Log.i("s", fileName);
+				dos = new DataOutputStream(conn.getOutputStream());
 
+				Log.i("c", "1");
 
-                //sending text with image
-              //  dos.writeBytes(twoHyphens + boundary + lineEnd);
-               //dos.writeBytes("Content-Disposition: form-data; name=\"title\""  + lineEnd);
-                //dos.writeBytes(lineEnd);
-                //dos.writeBytes("h");
-               // dos.writeBytes(lineEnd);
-               // dos.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
-                
-                
-Log.i("c","2");
-                // create a buffer of maximum size
-                bytesAvailable = fileInputStream.available();
+				// to send image
+				dos.writeBytes(twoHyphens + boundary + lineEnd);
+				dos.writeBytes("Content-Disposition: form-data; name=\"uploaded_file\";filename=\""
+						+ fileName + "\"" + lineEnd);
+				dos.writeBytes(lineEnd);
 
-                bufferSize = Math.min(bytesAvailable, maxBufferSize);
-                buffer = new byte[bufferSize];
-                Log.i("c","3");
-                // read file and write it into form...
-                bytesRead = fileInputStream.read(buffer, 0, bufferSize);
+				// sending text with image
+				// dos.writeBytes(twoHyphens + boundary + lineEnd);
+				// dos.writeBytes("Content-Disposition: form-data; name=\"title\""
+				// + lineEnd);
+				// dos.writeBytes(lineEnd);
+				// dos.writeBytes("h");
+				// dos.writeBytes(lineEnd);
+				// dos.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
 
-                while (bytesRead > 0) {
+				Log.i("c", "2");
+				// create a buffer of maximum size
+				bytesAvailable = fileInputStream.available();
 
-                    dos.write(buffer, 0, bufferSize);
-                    bytesAvailable = fileInputStream.available();
-                    bufferSize = Math.min(bytesAvailable, maxBufferSize);
-                    bytesRead = fileInputStream.read(buffer, 0, bufferSize);
+				bufferSize = Math.min(bytesAvailable, maxBufferSize);
+				buffer = new byte[bufferSize];
+				Log.i("c", "3");
+				// read file and write it into form...
+				bytesRead = fileInputStream.read(buffer, 0, bufferSize);
 
-                }
+				while (bytesRead > 0) {
 
-                // send multipart form data necesssary after file data...
-                dos.writeBytes(lineEnd);
-                dos.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
-                fileInputStream.close();
-                
-                //to send text
-                Log.i("a",user_id);
-              
-              
-            
-                
+					dos.write(buffer, 0, bufferSize);
+					bytesAvailable = fileInputStream.available();
+					bufferSize = Math.min(bytesAvailable, maxBufferSize);
+					bytesRead = fileInputStream.read(buffer, 0, bufferSize);
 
-                // Responses from the server (code and message)
-                serverResponseCode = conn.getResponseCode();
-                String serverResponseMessage = conn.getResponseMessage();
+				}
 
-                Log.i("uploadFile", "HTTP Response is : "
-                        + serverResponseMessage + ": " + serverResponseCode);
+				// send multipart form data necesssary after file data...
+				dos.writeBytes(lineEnd);
+				dos.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
+				fileInputStream.close();
 
-                if (serverResponseCode == 200) {
+				// to send text
+				Log.i("a", user_id);
 
-                    runOnUiThread(new Runnable() {
-                        public void run() {
-                            Toast.makeText(RegistrationAdmin.this,
-                                    "File Upload Complete.", Toast.LENGTH_SHORT)
-                                    .show();
-                        }
-                    });
-                }
+				// Responses from the server (code and message)
+				serverResponseCode = conn.getResponseCode();
+				String serverResponseMessage = conn.getResponseMessage();
 
-                // close the streams //
-              
-                dos.flush();
-                dos.close();
+				Log.i("uploadFile", "HTTP Response is : "
+						+ serverResponseMessage + ": " + serverResponseCode);
 
-            } catch (MalformedURLException ex) {
+				if (serverResponseCode == 200) {
 
-                dialog.dismiss();
-                ex.printStackTrace();
+					runOnUiThread(new Runnable() {
+						public void run() {
+							Toast.makeText(RegistrationAdmin.this,
+									"File Upload Complete.", Toast.LENGTH_SHORT)
+									.show();
+						}
+					});
+				}
 
-                runOnUiThread(new Runnable() {
-                    public void run() {
-                  
-                        Toast.makeText(RegistrationAdmin.this,
-                                "MalformedURLException", Toast.LENGTH_SHORT)
-                                .show();
-                    }
-                });
+				// close the streams //
 
-                Log.e("Upload file to server", "error: " + ex.getMessage(), ex);
-            } catch (Exception e) {
+				dos.flush();
+				dos.close();
 
-                //dialog.dismiss();
-                e.printStackTrace();
+			} catch (MalformedURLException ex) {
 
-                runOnUiThread(new Runnable() {
-                    public void run() {
-                    	
-                        Toast.makeText(RegistrationAdmin.this,
-                                "Got Exception : see logcat ",
-                                Toast.LENGTH_SHORT).show();
-                    }
-                });
-                Log.e("Upload file to server Exception",
-                        "Exception : " + e.getMessage(), e);
-            }
-          //  dialog.dismiss();
-            return serverResponseCode;
+				dialog.dismiss();
+				ex.printStackTrace();
 
-        } // End else block
-    }
-	    
+				runOnUiThread(new Runnable() {
+					public void run() {
+
+						Toast.makeText(RegistrationAdmin.this,
+								"MalformedURLException", Toast.LENGTH_SHORT)
+								.show();
+					}
+				});
+
+				Log.e("Upload file to server", "error: " + ex.getMessage(), ex);
+			} catch (Exception e) {
+
+				// dialog.dismiss();
+				e.printStackTrace();
+
+				runOnUiThread(new Runnable() {
+					public void run() {
+
+						Toast.makeText(RegistrationAdmin.this,
+								"Got Exception : see logcat ",
+								Toast.LENGTH_SHORT).show();
+					}
+				});
+				Log.e("Upload file to server Exception",
+						"Exception : " + e.getMessage(), e);
+			}
+			// dialog.dismiss();
+			return serverResponseCode;
+
+		} // End else block
 	}
-	
-	
-	
-	
-
-
+*/
+}

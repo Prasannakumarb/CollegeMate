@@ -78,7 +78,7 @@ public class Common_Entry extends ActionBarActivity {
 				} else {
 					Log.i("a", "folder3 creation failed");
 				}
-				settings.edit().putBoolean("my_first_time", false).commit();
+				//settings.edit().putBoolean("my_first_time", false).commit();
 			} else {
 				Intent i = new Intent(this, BasicHomeScreen.class);
 				i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -129,72 +129,20 @@ public class Common_Entry extends ActionBarActivity {
 
 		Intent i = new Intent(this, RegistrationAdmin.class);
 		// Create the bundle
-		Bundle bundle = new Bundle();
+		//Bundle bundle = new Bundle();
 		// Add your data to bundle
-		bundle.putString("role", "admin");
+		//bundle.putString("role", "admin");
 		// Add the bundle to the intent
-		i.putExtras(bundle);
+		//i.putExtras(bundle);
 
 		// Fire that second activity
 		startActivity(i);
 
-		// Make sure the device has the proper dependencies.
-		GCMRegistrar.checkDevice(this);
-
-		// Make sure the manifest was properly set - comment out this line
-		// while developing the app, then uncomment it when it's ready.
-		Log.i("a", "into checking manifest");
-		// GCMRegistrar.checkManifest(this);
-
-		Log.i("a", "going to regiter receiver");
-
-		registerReceiver(mHandleMessageReceiver, new IntentFilter(
-				DISPLAY_MESSAGE_ACTION));
-		Log.i("a", "going to register AND GET REgistration id");
-		// Get GCM registration id
-		final String regId = GCMRegistrar.getRegistrationId(this);
-
-		// Check if regid already presents
-		if (regId.equals("")) {
-			// Registration is not present, register now with GCM
-			GCMRegistrar.register(this, SENDER_ID);
-		} else {
-			// Device is already registered on GCM
-			if (GCMRegistrar.isRegisteredOnServer(this)) {
-				// Skips registration.
-				Toast.makeText(getApplicationContext(),
-						"Already registered with GCM", Toast.LENGTH_LONG)
-						.show();
-			} else {
-				// Try to register again, but not in the UI thread.
-				// It's also necessary to cancel the thread onDestroy(),
-				// hence the use of AsyncTask instead of a raw thread.
-				final Context context = this;
-				mRegisterTask = new AsyncTask<Void, Void, Void>() {
-
-					@Override
-					protected Void doInBackground(Void... params) {
-						// Register on our server
-						// On server creates a new user
-						ServerUtilities.register(context, "nothing",
-								"nothing", regId);
-						return null;
-					}
-
-					@Override
-					protected void onPostExecute(Void result) {
-						mRegisterTask = null;
-					}
-
-				};
-				mRegisterTask.execute(null, null, null);
-			}
-		}
 	}
 
 	/**
 	 * Receiving push messages
-	 * */
+	 * 
 	private final BroadcastReceiver mHandleMessageReceiver = new BroadcastReceiver() {
 		@Override
 		public void onReceive(Context context, Intent intent) {
@@ -205,7 +153,7 @@ public class Common_Entry extends ActionBarActivity {
 			/**
 			 * Take appropriate action on this message depending upon your app
 			 * requirement For now i am just displaying it on the screen
-			 * */
+			 * 
 
 			// Showing received message
 
@@ -232,7 +180,7 @@ public class Common_Entry extends ActionBarActivity {
 	}
 
 
-	
+	**/
 	public void Student_selected(View view) {
 
 		Intent i = new Intent(this, RegistrationStudent.class);
@@ -245,7 +193,7 @@ public class Common_Entry extends ActionBarActivity {
 
 		// Fire that second activity
 		startActivity(i);
-
+/**
 		// Make sure the device has the proper dependencies.
 		GCMRegistrar.checkDevice(this);
 
@@ -297,7 +245,7 @@ public class Common_Entry extends ActionBarActivity {
 				};
 				mRegisterTask.execute(null, null, null);
 			}
-		}
+		}**/
 	}
 
 
