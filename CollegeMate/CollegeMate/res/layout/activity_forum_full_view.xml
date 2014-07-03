@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/BG" >
+    android:background="#fbfaf9" >
 
     <ScrollView
         android:id="@+id/scrollView"
@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:background="#fbfaf9"
-            android:paddingBottom="15dp"
+            android:paddingBottom="25dp"
             android:scrollbars="vertical" >
 
             <TextView
@@ -59,6 +59,7 @@
                 android:paddingRight="10dp"
                 android:text="Decsription"
                 android:textColor="#908484"
+                android:textIsSelectable="true"
                 android:textSize="16sp" />
 
             <TextView
@@ -89,7 +90,7 @@
         android:text="Discussion Details"
         android:textColor="#ffffff"
         android:textColorHint="@color/TopStripTextColor"
-        android:textSize="14sp" />
+        android:textSize="16sp" />
 
     <View
         android:id="@+id/view1"
@@ -128,7 +129,7 @@
         android:paddingLeft="10dp"
         android:text="@string/swipe_for_comments"
         android:textAlignment="center"
-        android:textColor="#908484"
+        android:textColor="#333333"
         android:textColorHint="@color/TopStripTextColor"
         android:textSize="14sp" />
 

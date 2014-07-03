@@ -58,11 +58,11 @@ public class ForumAdapter extends ArrayAdapter<DiscussionList> {
 			final TextView likeText = (TextView) v.findViewById(R.id.likeText1);
 			TextView comm_Count = (TextView) v.findViewById(R.id.commentsCount);
 			TextView like_Count = (TextView) v.findViewById(R.id.likesCount);
-			
+
 			String like_Status = app.getLikeStatus();
 			String commCount = app.getCommCount();
 			String likeCount = app.getLikeCount();
-			
+
 			titleText.setText(app.getTitle());
 			categoryText.setText(app.getCategory());
 			descriptionText.setText(app.getDescription());
@@ -70,15 +70,27 @@ public class ForumAdapter extends ArrayAdapter<DiscussionList> {
 			idText.setText(app.getDiscId());
 			if (like_Status == "null") {
 				likeText.setText("Like");
-				int non_like_text_color = v.getResources().getColor(R.color.nonlikeTextColor);
-				((TextView) v.findViewById(R.id.likeText1)).setTextColor(non_like_text_color);
+				int non_like_text_color = v.getResources().getColor(
+						R.color.nonlikeTextColor);
+				((TextView) v.findViewById(R.id.likeText1))
+						.setTextColor(non_like_text_color);
 			} else {
 				likeText.setText("Liked");
-				final int like_text_color = v.getResources().getColor(R.color.likeTextColor);
-				((TextView) v.findViewById(R.id.likeText1)).setTextColor(like_text_color);
+				final int like_text_color = v.getResources().getColor(
+						R.color.likeTextColor);
+				((TextView) v.findViewById(R.id.likeText1))
+						.setTextColor(like_text_color);
 			}
-			comm_Count.setText(commCount+" C");
-			like_Count.setText(likeCount+" L");
+			if (commCount == "null") {
+				comm_Count.setText("0 C");
+			} else {
+				comm_Count.setText(commCount + " C");
+			}
+			if (likeCount == "null") {
+				like_Count.setText("0 L");
+			} else {
+				like_Count.setText(likeCount + " L");
+			}
 
 			final String dId = app.getDiscId();
 
@@ -88,10 +100,12 @@ public class ForumAdapter extends ArrayAdapter<DiscussionList> {
 			likeText.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View view) {
-					//final Integer myposition = (Integer) view.getTag();
+					// final Integer myposition = (Integer) view.getTag();
 					likeText.setText("Liked");
-					final int like_text_color = view.getResources().getColor(R.color.likeTextColor);
-					((TextView) view.findViewById(R.id.likeText1)).setTextColor(like_text_color);
+					final int like_text_color = view.getResources().getColor(
+							R.color.likeTextColor);
+					((TextView) view.findViewById(R.id.likeText1))
+							.setTextColor(like_text_color);
 					MainActivity val = new MainActivity();
 					val.updateLikeTable(dId);
 				}

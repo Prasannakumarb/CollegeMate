@@ -100,7 +100,7 @@
     <string name="title_activity_basic_home_screen">BasicHomeScreen</string>
     <string name="Welcomemsg">Welcome to CollegeMate. </string>
     <string name="quote"> We Connect people to Built FUTURE :).</string>
-    <string name="Chattext"> CHAT</string>
+    <string name="Chattext">Chat</string>
     <string name="title_activity_friend_listview">FriendListview</string>
     <string name="title_section1">Section 1</string>
     <string name="title_section2">Section 2</string>
