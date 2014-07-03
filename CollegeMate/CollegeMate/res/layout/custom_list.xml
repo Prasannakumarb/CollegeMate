@@ -79,7 +79,8 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="10dp"
             android:text="TextView"
-            android:textSize="10sp" />
+            android:textSize="10sp"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/likeText1"
@@ -87,30 +88,30 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_below="@+id/view1"
-            android:text="Like"
-            android:textColor="#908484"
+            android:layout_marginRight="10dp"
             android:layout_marginTop="5dp"
-            android:layout_marginRight="10dp" />
+            android:text="Like"
+            android:textColor="#908484" />
 
         <TextView
             android:id="@+id/commentsCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/dscCategory"
-            android:layout_alignRight="@+id/dscDiscId"
-            android:textSize="12sp"
-            android:text="4 C" />
+            android:layout_alignBottom="@+id/dscTitle"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:text="C"
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/likesCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/dscTitle"
             android:layout_marginRight="10dp"
-            android:layout_alignTop="@+id/commentsCount"
             android:layout_toLeftOf="@+id/commentsCount"
-            android:textSize="12sp"
-            android:text="4 L" />
-
+            android:text="L"
+            android:textSize="12sp" />
     </RelativeLayout>
 
 </RelativeLayout>

@@ -50,7 +50,7 @@
             android:layout_width="fill_parent"
             android:layout_height="1dip"
             android:layout_below="@+id/commentDesc"
-            android:background="#efede9" />
+            android:background="#e2e0dc" />
     </RelativeLayout>
 
 </RelativeLayout>

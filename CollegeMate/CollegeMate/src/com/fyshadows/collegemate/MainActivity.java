@@ -125,6 +125,8 @@ public class MainActivity extends ListActivity implements FetchDataListener {
 			HttpGet request = new HttpGet();
 			request.setURI(new URI(likeUrl));
 			client.execute(request);
+			ForumAdapter adapter = new ForumAdapter(null, items);
+			adapter.notifyDataSetChanged();
 
 		} catch (Exception e) {
 			e.printStackTrace();
