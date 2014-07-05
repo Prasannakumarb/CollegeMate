@@ -88,7 +88,7 @@ public class RegistrationAdmin extends ActionBarActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		db.getWritableDatabase();
+		//db.getWritableDatabase();
 		setContentView(R.layout.activity_registration_admin);
 
 		if (savedInstanceState == null) {

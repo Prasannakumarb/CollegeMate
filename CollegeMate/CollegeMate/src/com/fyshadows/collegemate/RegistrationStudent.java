@@ -155,7 +155,7 @@ public class RegistrationStudent extends ActionBarActivity {
 			Selected_sex = (String) btn.getText();
 			 Log.i("Selected_sex",Selected_sex);
 		}
-		regId = GCMRegistrar.getRegistrationId(this);
+		/*regId = GCMRegistrar.getRegistrationId(this);
 		try {
 			String link = "http://fyshadows.com/CollegeMate/collegemate_adminregistration.php?name="
 					+ name
@@ -198,13 +198,18 @@ public class RegistrationStudent extends ActionBarActivity {
 
 		// TO execute image upload in back ground
 		new AsyncTaskEx().execute();
+		*/
 		Intent i = new Intent(this, StudentCollegeregistration.class);
 		Bundle bundle = new Bundle();
-		// Add your data to bundle
-		bundle.putString("user_id", user_id);
-		// Add the bundle to the intent
+		bundle.putString("name", name);
+		bundle.putString("phone", phone);
+		bundle.putString("email", email);
+		bundle.putString("dob", dob);
+		bundle.putString("Selected_sex", Selected_sex);
+		bundle.putString("role", role);
+		bundle.putString("Cityin", Cityin);
+		bundle.putString("imagepath", imagepath);
 		i.putExtras(bundle);
-
 		// Fire that second activity
 		startActivity(i);
 	}
@@ -288,7 +293,7 @@ public class RegistrationStudent extends ActionBarActivity {
 		return cursor.getString(column_index);
 	}
 
-	// This task will be called to store the images in back ground
+	/*// This task will be called to store the images in back ground
 	private class AsyncTaskEx extends AsyncTask<Void, Void, Void> {
 
 		protected void onPreExecute() {
@@ -302,7 +307,7 @@ public class RegistrationStudent extends ActionBarActivity {
 		/**
 		 * The system calls this to perform work in a worker thread and delivers
 		 * it the parameters given to AsyncTask.execute()
-		 */
+		 
 		protected Void doInBackground(Void... arg0) {
 			Log.d("a", "into background");
 			Log.i("c", "into background");
@@ -472,5 +477,5 @@ public class RegistrationStudent extends ActionBarActivity {
 
 		} // End else block
 	}
-
+*/
 }

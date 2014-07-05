@@ -49,6 +49,8 @@ public class AdminCollegeregistraton extends ActionBarActivity {
 	String collegewebsite = null;
 	String collegephonenumber = null;
 	String college_id = null;
+	  ProgressDialog pDialog;
+	 
 
 	private int serverResponseCode = 0;
 	private ProgressDialog dialog = null;
@@ -87,7 +89,7 @@ public class AdminCollegeregistraton extends ActionBarActivity {
 		Cityin = bundle.getString("Cityin");
 		imagepath = bundle.getString("imagepath");
 		
-		
+	/*	
 		// /GCM registration start
 
 				// Make sure the device has the proper dependencies.
@@ -145,6 +147,8 @@ public class AdminCollegeregistraton extends ActionBarActivity {
 					}
 				}
 				// /GCM registration end
+				 * */
+				
 				getActionBar().setDisplayHomeAsUpEnabled(true);				
 	}
 
@@ -190,6 +194,12 @@ public class AdminCollegeregistraton extends ActionBarActivity {
 
 	public void registercollege(View view) {
 
+		
+		pDialog = new ProgressDialog(AdminCollegeregistraton.this);
+        pDialog.setMessage("Registering..");
+        pDialog.setCancelable(false);
+        pDialog.show();
+        
 		// Getting the user input and storing into variables
 		collegename = ((EditText) findViewById(R.id.editText_collname))
 				.getText().toString();
@@ -203,19 +213,12 @@ public class AdminCollegeregistraton extends ActionBarActivity {
 				.getText().toString();
 		
 		
-
-		
-
-		
-
 		// setting the file to disable back
 		SharedPreferences settings = getSharedPreferences("MyPrefsFile", 0);
 		settings.edit().putBoolean("my_first_time", false).commit();
 		// end settings
 
-		// getting value from bundle
-
-		// end of getting vale from bundle
+		
 		// admin registration starts
 		try {
 			regId = GCMRegistrar.getRegistrationId(this);
@@ -305,12 +308,10 @@ public class AdminCollegeregistraton extends ActionBarActivity {
 		}
 
 	}
-
+/*
 	// /GCM registration start
 
-	/**
-	 * Receiving push messages
-	 * */
+	
 	private final BroadcastReceiver mHandleMessageReceiver = new BroadcastReceiver() {
 		@Override
 		public void onReceive(Context context, Intent intent) {
@@ -321,7 +322,7 @@ public class AdminCollegeregistraton extends ActionBarActivity {
 			/**
 			 * Take appropriate action on this message depending upon your app
 			 * requirement For now i am just displaying it on the screen
-			 * */
+			
 
 			// Showing received message
 
@@ -332,6 +333,8 @@ public class AdminCollegeregistraton extends ActionBarActivity {
 			// WakeLocker.release();
 		}
 	};
+	
+	*/
 
 	@Override
 	protected void onDestroy() {
@@ -360,7 +363,7 @@ public class AdminCollegeregistraton extends ActionBarActivity {
 					Selected_sex, email, phone, Cityin, role));
 
 		}
-
+	
 		/**
 		 * The system calls this to perform work in a worker thread and delivers
 		 * it the parameters given to AsyncTask.execute()
@@ -369,8 +372,12 @@ public class AdminCollegeregistraton extends ActionBarActivity {
 			Log.d("a", "into background");
 			Log.i("c", "into background");
 			uploadFile(imagepath);
+			if (pDialog.isShowing())
+                pDialog.dismiss();
 			return null;
 		}
+		
+		
 	}
 
 	public int uploadFile(String sourceFileUri) {
@@ -388,8 +395,6 @@ public class AdminCollegeregistraton extends ActionBarActivity {
 		File sourceFile = new File(sourceFileUri);
 
 		if (!sourceFile.isFile()) {
-
-			dialog.dismiss();
 
 			Log.e("uploadFile", "Source File not exist :" + imagepath);
 

@@ -3,11 +3,12 @@ package com.fyshadows.collegemate;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -26,10 +27,10 @@ public class FriendList extends ListActivity {
 	 List<FriendInfoTable> list = new ArrayList<FriendInfoTable>();
 	 Collegemate_DB db = new Collegemate_DB(this);
 	 int listPosition ;
+	@SuppressWarnings("deprecation")
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
- 
         setContentView(R.layout.activity_friend_list);
         
         registerForContextMenu(this.getListView());
