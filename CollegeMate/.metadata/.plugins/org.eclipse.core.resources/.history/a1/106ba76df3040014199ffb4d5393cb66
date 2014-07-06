@@ -30,7 +30,7 @@
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:text="Title"
-                android:textColor="#666666"
+                android:textColor="#77d3f1"
                 android:textSize="18sp" />
 
             <View
@@ -39,9 +39,7 @@
                 android:layout_height="1dip"
                 android:layout_below="@+id/discTitle"
                 android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="10dp"
-                android:background="#c0beb9" />
+                android:background="#cf9c12" />
 
             <TextView
                 android:id="@+id/discCategory"
@@ -49,12 +47,12 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_alignRight="@+id/discTitle"
-                android:layout_below="@+id/view1"
+                android:layout_below="@+id/discTitle"
                 android:layout_marginTop="10dp"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:text="Category"
-                android:textColor="#666666"
+                android:textColor="#77d3f1"
                 android:textSize="14sp" />
 
             <TextView
