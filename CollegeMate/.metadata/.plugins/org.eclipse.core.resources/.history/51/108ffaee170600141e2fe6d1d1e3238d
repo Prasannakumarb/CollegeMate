@@ -170,8 +170,9 @@ public class MessageActivity extends ListActivity {
 			myListView.setSelectionFromTop(index, top);
 			}
 			
-			if(first == 0) {
+			if(first > 0) {
 				myListView.setSelection(scrolly);
+			
 				}
 			first=first+1;
 		}
@@ -185,7 +186,6 @@ public class MessageActivity extends ListActivity {
 			StrictMode.setThreadPolicy(policy);
 		}
 		Log.i("came here", "there");
-		first=0;
 		String currentuserid = db.getCurrentuserId();
 		String link = "http://fyshadows.com/CollegeMate/SendChat.php?userid="
 				+ userid.trim() + "&message=" + Chat_Text + "&currentuserid="

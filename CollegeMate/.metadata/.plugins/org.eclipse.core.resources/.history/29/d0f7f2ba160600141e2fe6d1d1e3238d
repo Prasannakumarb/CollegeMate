@@ -140,23 +140,12 @@ public class MessageActivity extends ListActivity {
 	
 
 	public void getchat() {
-		int index = 0;
-		int top = 0;
+		list.clear();
 		ListView myListView =(ListView) findViewById(android.R.id.list);
 		if(first > 0) {
 			
-			//View c = myListView.getChildAt(0);
-			//scrolly = -c.getTop() + myListView.getFirstVisiblePosition() * c.getHeight();
-			//Log.i("scrolly",String.valueOf(scrolly));
-			
-			 index = myListView.getFirstVisiblePosition();
-			View v = myListView.getChildAt(0);
-			 top = (v == null) ? 0 : v.getTop();
-			list.clear();
-			// ...
-
-			// restore index and position
-			
+			View c = myListView.getChildAt(0);
+			scrolly = -c.getTop() + myListView.getFirstVisiblePosition() ;
 		}
 		list = db.Getchat(userid);
 		if (!list.isEmpty()) {
@@ -165,14 +154,10 @@ public class MessageActivity extends ListActivity {
 			setListAdapter(adapter);
 			adapter.notifyDataSetChanged();
 			
-			if(first > 0) {
-			//myListView.setSelection(scrolly);
-			myListView.setSelectionFromTop(index, top);
-			}
 			
-			if(first == 0) {
-				myListView.setSelection(scrolly);
-				}
+			myListView.setSelection(scrolly);
+			
+			
 			first=first+1;
 		}
 
@@ -185,7 +170,6 @@ public class MessageActivity extends ListActivity {
 			StrictMode.setThreadPolicy(policy);
 		}
 		Log.i("came here", "there");
-		first=0;
 		String currentuserid = db.getCurrentuserId();
 		String link = "http://fyshadows.com/CollegeMate/SendChat.php?userid="
 				+ userid.trim() + "&message=" + Chat_Text + "&currentuserid="

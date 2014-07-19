@@ -48,7 +48,6 @@ public class ChatHomeScreen extends ListActivity {
 		new getdata().execute();
 		ListView lv = getListView();
 		
-		getActionBar().setDisplayHomeAsUpEnabled(true);
 		
 		lv.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View view,

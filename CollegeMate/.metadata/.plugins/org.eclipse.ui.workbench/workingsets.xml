@@ -86,9 +86,18 @@
 <workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1404582079821_83" label="Window Working Set" name="Aggregate for window 1404582079821"/>
 <workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1404582283726_84" label="Window Working Set" name="Aggregate for window 1404582283726"/>
 <workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1404584316936_85" label="Window Working Set" name="Aggregate for window 1404584316935"/>
+<<<<<<< HEAD
+<workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1404756502724_86" label="Window Working Set" name="Aggregate for window 1404756502723"/>
+<workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1404757719841_87" label="Window Working Set" name="Aggregate for window 1404757719840"/>
+<workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1405790385563_88" label="Window Working Set" name="Aggregate for window 1405790385563"/>
+=======
 <workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1404638634312_86" label="Window Working Set" name="Aggregate for window 1404638634312"/>
+<<<<<<< HEAD
 <workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1404728240489_87" label="Window Working Set" name="Aggregate for window 1404728240489"/>
 <workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1404918031266_88" label="Window Working Set" name="Aggregate for window 1404918031266"/>
 <workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1405006073462_89" label="Window Working Set" name="Aggregate for window 1405006073461"/>
 <workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1405792000672_90" label="Window Working Set" name="Aggregate for window 1405792000671"/>
+=======
+>>>>>>> 11e7552f62e42314774235560d1c0256565b8452
+>>>>>>> 30f7c73948f37fee660878a816171d29cc603125
 </workingSetManager>

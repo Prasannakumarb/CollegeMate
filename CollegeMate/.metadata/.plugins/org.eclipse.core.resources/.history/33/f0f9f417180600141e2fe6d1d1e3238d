@@ -170,7 +170,7 @@ public class MessageActivity extends ListActivity {
 			myListView.setSelectionFromTop(index, top);
 			}
 			
-			if(first == 0) {
+			if(first > 0) {
 				myListView.setSelection(scrolly);
 				}
 			first=first+1;

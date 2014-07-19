@@ -48,7 +48,6 @@ public class ChatHomeScreen extends ListActivity {
 		new getdata().execute();
 		ListView lv = getListView();
 		
-		getActionBar().setDisplayHomeAsUpEnabled(true);
 		
 		lv.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View view,
@@ -231,7 +230,7 @@ public class ChatHomeScreen extends ListActivity {
 			publishProgress("" + progress);
 
 			list.clear();
-			//getActionBar().setDisplayHomeAsUpEnabled(true);
+			getActionBar().setDisplayHomeAsUpEnabled(true);
 			final GetDataFromDB getvalues = new GetDataFromDB();
 			String response = getvalues.getImageURLAndDesciptionFromDB();
 			System.out.println("Response : This is  " + response);
