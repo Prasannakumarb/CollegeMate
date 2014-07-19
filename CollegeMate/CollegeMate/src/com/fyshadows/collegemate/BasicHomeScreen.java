@@ -26,15 +26,10 @@ public class BasicHomeScreen extends ActionBarActivity {
 				| Intent.FLAG_ACTIVITY_NEW_TASK);
 		startActivity(i);
 	}
-		
-		
 		if (savedInstanceState == null) {
 			getSupportFragmentManager().beginTransaction()
 					.add(R.id.container, new PlaceholderFragment()).commit();
 		}
-		
-		
-		
 	}
 
 	@Override

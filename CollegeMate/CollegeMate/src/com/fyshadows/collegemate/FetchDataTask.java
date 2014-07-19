@@ -31,6 +31,7 @@ public class FetchDataTask extends AsyncTask<String, Void, String> {
 	protected String doInBackground(String... params) {
 		if (params == null)
 			return null;
+		boolean loadingMore = true;
 
 		// get url from params
 		String url = params[0];

@@ -1,0 +1,129 @@
+package com.fyshadows.collegemate;
+
+import java.util.List;
+
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.webkit.WebView;
+import android.widget.ArrayAdapter;
+import android.widget.TextView;
+
+public class ForumAdapter extends ArrayAdapter<DiscussionList> {
+	private static List<DiscussionList> items = null;
+
+	public ForumAdapter(Context context, List<DiscussionList> items) {
+		super(context, R.layout.custom_list, items);
+		this.items = items;
+	}
+
+	@Override
+	public int getCount() {
+		return items.size();
+	}
+
+	public static DiscussionList getModelPosition(int position) {
+		return items.get(position);
+	}
+
+	public void refill(List<DiscussionList> items) {
+		items.clear();
+		items.addAll(items);
+		notifyDataSetChanged();
+	}
+
+	public class ViewHolder {
+		TextView titleText;
+		TextView categoryText;
+		TextView descriptionText;
+		TextView timeText;
+		TextView idText;
+		TextView likeText;
+		TextView comm_Count;
+		TextView like_Count;
+	}
+
+	@Override
+	public View getView(int position, View convertView, ViewGroup parent) {
+		View v = convertView;
+		ViewHolder holder = null;
+
+		if (v == null) {
+			LayoutInflater li = LayoutInflater.from(getContext());
+			v = li.inflate(R.layout.custom_list, null);
+		}
+
+		DiscussionList app = items.get(position);
+
+		if (app != null) {
+			holder.titleText = (TextView) v.findViewById(R.id.dscTitle);
+			holder.categoryText = (TextView) v.findViewById(R.id.dscCategory);
+			holder.descriptionText = (TextView) v.findViewById(R.id.dscDescription);
+			holder.timeText = (TextView) v.findViewById(R.id.dscTime);
+			holder.idText = (TextView) v.findViewById(R.id.dscDiscId);
+			holder.likeText = (TextView) v.findViewById(R.id.likeText1);
+			holder.comm_Count = (TextView) v.findViewById(R.id.commentsCount);
+			holder.like_Count = (TextView) v.findViewById(R.id.likesCount);
+
+			String like_Status = app.getLikeStatus();
+			String commCount = app.getCommCount();
+			String likeCount = app.getLikeCount();
+
+			holder.titleText.setText(app.getTitle());
+			holder.categoryText.setText(app.getCategory());
+			holder.descriptionText.setText(app.getDescription());
+			holder.timeText.setText(app.getTime());
+			holder.idText.setText(app.getDiscId());
+			if (like_Status == "null") {
+				holder.likeText.setText("Like");
+				int non_like_text_color = v.getResources().getColor(
+						R.color.nonlikeTextColor);
+				((TextView) v.findViewById(R.id.likeText1))
+						.setTextColor(non_like_text_color);
+			} else {
+				holder.likeText.setText("Liked");
+				final int like_text_color = v.getResources().getColor(
+						R.color.likeTextColor);
+				((TextView) v.findViewById(R.id.likeText1))
+						.setTextColor(like_text_color);
+			}
+			if (commCount == "null") {
+				holder.comm_Count.setText("0 C");
+			} else {
+				holder.comm_Count.setText(commCount + " C");
+			}
+			if (likeCount == "null") {
+				holder.like_Count.setText("0 L");
+			} else {
+				holder.like_Count.setText(likeCount + " L");
+			}
+
+			final String dId = app.getDiscId();
+
+			// onClick for image button inside list view
+
+			holder.likeText.setTag(new Integer(position));
+			holder.likeText.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View view) {
+					// final Integer myposition = (Integer) view.getTag();
+					ViewHolder holder = null;
+					holder.likeText.setText("Liked");
+					final int like_text_color = view.getResources().getColor(
+							R.color.likeTextColor);
+					((TextView) view.findViewById(R.id.likeText1))
+							.setTextColor(like_text_color);
+					MainActivity val = new MainActivity();
+					val.updateLikeTable(dId);
+				}
+
+			});
+
+		} else {
+			holder = (ForumAdapter) convertView.getTag();
+		}
+
+		return v;
+	}
+}

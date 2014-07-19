@@ -69,6 +69,7 @@ public class ForumCommentsView extends ListActivity implements FetchCommentsList
 			HttpClient client = new DefaultHttpClient();
 			HttpGet request = new HttpGet();
 			request.setURI(new URI(commentUrl));
+			Log.i("comment : ",commentUrl);
 			client.execute(request);
 			Toast.makeText(getApplicationContext(), "Comment Submitted",
 					Toast.LENGTH_LONG).show();
