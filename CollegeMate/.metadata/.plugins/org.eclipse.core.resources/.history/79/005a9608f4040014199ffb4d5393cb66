@@ -41,7 +41,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="10dp"
-                android:background="#c0beb9" />
+                android:background="#999999" />
 
             <TextView
                 android:id="@+id/discCategory"

@@ -25,7 +25,7 @@
         android:background="#f7ba16"
         android:paddingLeft="10dp"
         android:paddingTop="12dp"
-        android:text="Recent Discussions"
+        android:text="Forum Topics"
         android:textColor="#ffffff"
         android:textColorHint="@color/TopStripTextColor"
         android:textSize="14sp" />
