@@ -63,7 +63,7 @@ public void registeradmin(Masterusertable Masterusertable) {
     // Inserting Row
     db.insert("cm_mob_masteruserdetails", null, values);
     Log.d("a: ", "done registration ..");
-    db.close(); // Closing database connection
+     // Closing database connection
 }
 
 //updating the college name and college table once he registered for college
@@ -80,7 +80,7 @@ values.put("college_name", com.fyshadows.collegemate.Masterusertable._college_na
  db.update("cm_mob_masteruserdetails", values, "user_id" + " = ?",
         new String[] { String.valueOf(Masterusertable.getuserid()) });
  Log.d("a: ", "done updation ..");
- db.close(); // Closing database connection
+  // Closing database connection
 }
 
 //updating the college name and college table for student
@@ -102,7 +102,7 @@ values.put("department_name", com.fyshadows.collegemate.Masterusertable._departm
 //updating row
 db.update("cm_mob_masteruserdetails", values, null, null);
 Log.d("a: ", "done updation ..");
-db.close(); // Closing database connection
+ // Closing database connection
 }
 
 
@@ -124,6 +124,7 @@ Masterusertable getuserdetails(String user_id) {
 
 //Storing friend info details
 public String addfriend(FriendInfoTable FriendInfoTable) {
+	Log.i("checking",FriendInfoTable.getuserid().trim());
 	 String CheckID=CheckId(FriendInfoTable.getuserid().trim());
 	 Log.i("checkid","checkid"+CheckID);
 	if(CheckID.trim().equalsIgnoreCase("True") )
@@ -146,12 +147,12 @@ public String addfriend(FriendInfoTable FriendInfoTable) {
    
    if(rowid > 0)
    {
-	   db.close();
+	   
 	   return "True";
    }
    else
    {
-	   db.close();
+	   
 	   return "False";
    }
    }
@@ -177,7 +178,7 @@ public Long addChat(MessageTable MessageTable) {
  long rowid= db.insert("cm_mob_chat", null, values);
  Log.d("a: ", Long.toString(rowid));
   Log.d("a: ", "done Storing ..");
-  db.close();
+  
   return rowid;
    // Closing database connection
   }
@@ -198,7 +199,7 @@ values.put("notification_message",notificationtable.getMessage());
 long rowid= db.insert("cm_mob_notification", null, values);
 Log.d("a: ", Long.toString(rowid));
 Log.d("a: ", "done Storing ..");
-db.close();
+
 return rowid;
  // Closing database connection
 }
@@ -214,13 +215,13 @@ public String getCurrentuserId(){
 	  if (null != cursor && cursor.moveToFirst()) {
 		  Log.i("val","val");
 		  int userid = cursor.getColumnIndex("user_id");
-		  db.close();
+		  
 	  	return cursor.getString(userid);
 	  }
 	  else
 	  {
 		  Log.i("noval","noval");
-		  db.close();
+		  
 	  	return "false";
 	  }
 	 
@@ -237,13 +238,13 @@ public String getCollegeId(){
 	  if (null != cursor && cursor.moveToFirst()) {
 		  Log.i("val","val");
 		  int colid = cursor.getColumnIndex("college_id");
-		  db.close();
+		  
 	  	return cursor.getString(colid);
 	  }
 	  else
 	  {
 		  Log.i("noval","noval");
-		  db.close();
+		  
 	  	return "false";
 	  }
 	 
@@ -252,20 +253,19 @@ public String getCollegeId(){
 //Getting ID value if present
 public String CheckId(String id){
 
-  String selectQuery = "SELECT user_id FROM cm_mob_Friendinfo WHERE  user_id='"+id.trim()+"'"; 
+  String selectQuery = "SELECT user_id FROM cm_mob_Friendinfo WHERE  trim(user_id)='"+id.trim()+"'"; 
 Log.i("query",selectQuery);
   SQLiteDatabase db = this.getReadableDatabase();
   Cursor cursor = db.rawQuery(selectQuery, null);
 
   if ( cursor.getCount()>0) {
-	  db.close();
+	  
   	return "False";
-  	
-  	 
+ 	 
   }
   else
   {
-	  db.close();
+	  
   	return "True";
   	
   }
@@ -311,7 +311,7 @@ Log.i("into",selectQuery);
 	  
 	  
 	  }
-	  db.close();
+
 	  return list;
 }
 
@@ -350,7 +350,7 @@ public List<notificationtable>  Getnotitification(){
 	  
 	  
 	  }
-	  db.close();
+	  
 	  return list;
 }
 
@@ -400,7 +400,7 @@ Log.i("f","not null");
   {
 	  list.add(get("","","",0));
   }
-  db.close(); 
+   
   return list;
 }
 //Store the new message count
@@ -426,7 +426,7 @@ else
 	
 }
 
- db.close(); 
+  
 }
 //update the sent status
 public void updatesentstatus(long rowid,int status) {
@@ -439,7 +439,7 @@ String sql = "UPDATE cm_mob_chat " +
        " WHERE  id   = " + rowid;
 
 db.execSQL(sql);
-db.close(); 
+ 
 }
 private FriendInfoTable get(String id, String name, String path,int msgcount) {
 	 return new FriendInfoTable(id, name,path,msgcount);
@@ -454,14 +454,14 @@ private MessageTable get1(String user_id,String Chat_Text,int IsMine,int sent,St
 public void deleteChat(String uid) {
     SQLiteDatabase db = this.getWritableDatabase();
     db.delete("cm_mob_chat", "trim(user_id)" + " = ?",new String[] {uid.trim()});
-    db.close();
+    
 }
 
 public void removefriend(String uid) {
     SQLiteDatabase db = this.getWritableDatabase();
     db.delete("cm_mob_Friendinfo", "trim(user_id)" + " = ?",new String[] {uid.trim()});
     db.delete("cm_mob_chat", "trim(user_id)" + " = ?",new String[] {uid.trim()});
-    db.close();
+    
 }
 
 }

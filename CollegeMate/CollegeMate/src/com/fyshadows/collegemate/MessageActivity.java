@@ -25,7 +25,9 @@ import android.os.StrictMode;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.EditText;
+import android.widget.ListView;
 
 public class MessageActivity extends ListActivity {
 
@@ -40,9 +42,12 @@ public class MessageActivity extends ListActivity {
 	String Chat_Text;
 	String Status;
 	long chatid;
+	int scrolly=100;
+	int first=0;
 	Collegemate_DB db = new Collegemate_DB(this);
 	List<MessageTable> list = new ArrayList<MessageTable>();
 	final Handler handler = new Handler();
+	
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -75,13 +80,15 @@ public class MessageActivity extends ListActivity {
 
 			@Override
 			public void run() {
-
+				
+				
 				getchat();
-
-				handler.postDelayed(this, 30 * 50);
+				
+				handler.postDelayed(this, 30 * 50); 
 			}
 		}, 30 * 50);
 		getActionBar().setDisplayHomeAsUpEnabled(true);
+		
 
 	}
 
@@ -133,15 +140,40 @@ public class MessageActivity extends ListActivity {
 	
 
 	public void getchat() {
-		list.clear();
+		int index = 0;
+		int top = 0;
+		ListView myListView =(ListView) findViewById(android.R.id.list);
+		if(first > 0) {
+			
+			//View c = myListView.getChildAt(0);
+			//scrolly = -c.getTop() + myListView.getFirstVisiblePosition() * c.getHeight();
+			//Log.i("scrolly",String.valueOf(scrolly));
+			
+			 index = myListView.getFirstVisiblePosition();
+			View v = myListView.getChildAt(0);
+			 top = (v == null) ? 0 : v.getTop();
+			list.clear();
+			// ...
 
+			// restore index and position
+			
+		}
 		list = db.Getchat(userid);
 		if (!list.isEmpty()) {
 
 			adapter = new ChatCustomAdpter(this, list);
 			setListAdapter(adapter);
 			adapter.notifyDataSetChanged();
-
+			
+			if(first > 0) {
+			//myListView.setSelection(scrolly);
+			myListView.setSelectionFromTop(index, top);
+			}
+			
+			if(first == 0) {
+				myListView.setSelection(scrolly);
+				}
+			first=first+1;
 		}
 
 	}
@@ -153,6 +185,7 @@ public class MessageActivity extends ListActivity {
 			StrictMode.setThreadPolicy(policy);
 		}
 		Log.i("came here", "there");
+		first=0;
 		String currentuserid = db.getCurrentuserId();
 		String link = "http://fyshadows.com/CollegeMate/SendChat.php?userid="
 				+ userid.trim() + "&message=" + Chat_Text + "&currentuserid="

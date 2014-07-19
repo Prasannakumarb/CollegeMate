@@ -13,18 +13,19 @@
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="false" key="wholeword"/>
-		<item value="dialog" key="selection"/>
+		<item value="" key="selection"/>
 		<list key="findhistory">
-			<item value="dialog"/>
-			<item value="registerReceiver"/>
-			<item value="getcurrent"/>
-			<item value="regId"/>
-			<item value="upload"/>
-			<item value="db."/>
-			<item value="getuser"/>
+			<item value="db.close();"/>
+			<item value="close"/>
+			<item value="closr"/>
+			<item value="getchat"/>
 			<item value="get"/>
+			<item value="AsyncTaskEx"/>
+			<item value="CheckId"/>
+			<item value="addfriend"/>
 		</list>
 		<list key="replacehistory">
+			<item value=""/>
 			<item value="college_id"/>
 			<item value="35dp"/>
 		</list>

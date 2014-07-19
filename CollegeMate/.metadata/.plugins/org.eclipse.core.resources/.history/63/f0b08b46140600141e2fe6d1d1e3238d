@@ -1,0 +1,270 @@
+package com.fyshadows.collegemate;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+
+import android.app.ListActivity;
+import android.content.Intent;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.StrictMode;
+import android.util.Log;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.AbsListView;
+import android.widget.EditText;
+import android.widget.ListView;
+
+public class MessageActivity extends ListActivity {
+
+	ArrayList<MessageTable> messages;
+	ChatCustomAdpter adapter;
+	EditText text;
+
+	static String sender;
+	String userid;
+	String username;
+	String picpath;
+	String Chat_Text;
+	String Status;
+	long chatid;
+	int scrolly=100;
+	Collegemate_DB db = new Collegemate_DB(this);
+	List<MessageTable> list = new ArrayList<MessageTable>();
+	final Handler handler = new Handler();
+	
+
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_message);
+		Bundle bundle = getIntent().getExtras();
+		userid = bundle.getString("userid");
+		username = bundle.getString("username");
+		picpath = bundle.getString("PicPath");
+		// To make the unread message count to 0
+		db.storenewmsgcount(userid, "dontadd");
+		text = (EditText) this.findViewById(R.id.text);
+
+		GCMIntentService.messagecount = 0;
+		GCMIntentService.messagecount2 = 0;
+
+		// sender = Utility.sender[rand.nextInt( Utility.sender.length-1)];
+
+		this.setTitle(username);
+
+		if (android.os.Build.VERSION.SDK_INT > 9) {
+			StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+					.permitAll().build();
+			StrictMode.setThreadPolicy(policy);
+		}
+		Log.i("a", "calling get chat");
+		getchat();
+
+		handler.postDelayed(new Runnable() {
+
+			@Override
+			public void run() {
+				ListView myListView =(ListView) findViewById(android.R.id.list);
+				View c = myListView.getChildAt(0);
+				 scrolly = -c.getTop() + myListView.getFirstVisiblePosition() * c.getHeight();
+				getchat();
+
+				handler.postDelayed(this, 30 * 50); 
+			}
+		}, 30 * 50);
+		getActionBar().setDisplayHomeAsUpEnabled(true);
+		
+
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case android.R.id.home:
+			// app icon in action bar clicked; go home
+			Intent intent = new Intent(this, FriendList.class);
+			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			startActivity(intent);
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
+	}
+
+	@Override
+	public void onPause() {
+		handler.removeCallbacksAndMessages(null);
+		super.onPause();
+	}
+
+	@Override
+	public void onDestroy() {
+		handler.removeCallbacksAndMessages(null);
+		super.onDestroy();
+	}
+
+	public void sendMessage(View v) throws URISyntaxException {
+
+		String newMessage = text.getText().toString().trim();
+		try {
+			Chat_Text = URLEncoder.encode(newMessage, "UTF-8");
+
+		} catch (UnsupportedEncodingException e) {
+
+			e.printStackTrace();
+		}
+		text.setText("");
+		if (newMessage.length() > 0) {
+			chatid = db.addChat(new MessageTable(userid.trim(), newMessage, 0));
+			new AsyncTaskEx().execute();
+
+		}
+
+	}
+
+	
+
+	public void getchat() {
+		list.clear();
+
+		list = db.Getchat(userid);
+		if (!list.isEmpty()) {
+
+			adapter = new ChatCustomAdpter(this, list);
+			setListAdapter(adapter);
+
+			adapter.notifyDataSetChanged();
+			
+			
+			myListView.setSelection(scrolly);
+			
+			
+
+		}
+
+	}
+
+	public void sendmessage1() {
+		if (android.os.Build.VERSION.SDK_INT > 9) {
+			StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+					.permitAll().build();
+			StrictMode.setThreadPolicy(policy);
+		}
+		Log.i("came here", "there");
+		String currentuserid = db.getCurrentuserId();
+		String link = "http://fyshadows.com/CollegeMate/SendChat.php?userid="
+				+ userid.trim() + "&message=" + Chat_Text + "&currentuserid="
+				+ currentuserid.trim();
+		Log.i("a", link);
+		HttpClient client = new DefaultHttpClient();
+		HttpGet request = new HttpGet();
+		try {
+			request.setURI(new URI(link));
+		} catch (URISyntaxException e1) {
+
+			e1.printStackTrace();
+		}
+		try {
+			HttpResponse response = client.execute(request);
+			BufferedReader in = new BufferedReader(new InputStreamReader(
+					response.getEntity().getContent()));
+
+			StringBuffer sb = new StringBuffer("");
+			String line = "";
+			while ((line = in.readLine()) != null) {
+				sb.append(line);
+				break;
+			}
+			in.close();
+			Status = sb.toString();
+			if (Status.trim().equalsIgnoreCase("true")) {
+				db.updatesentstatus(chatid, 1);
+			} else {
+				db.updatesentstatus(chatid, 0);
+			}
+			Log.i("hi", "done");
+		} catch (ClientProtocolException e) {
+
+			e.printStackTrace();
+		} catch (IOException e) {
+
+			e.printStackTrace();
+		}
+	}
+
+	// This task will be called to store the images in back ground
+	private class AsyncTaskEx extends AsyncTask<Void, Void, Void> {
+
+		protected void onPreExecute() {
+
+			Log.i("into async", "into async");
+		}
+
+		/**
+		 * The system calls this to perform work in a worker thread and delivers
+		 * it the parameters given to AsyncTask.execute()
+		 */
+		protected Void doInBackground(Void... arg0) {
+			Log.i("called", "called");
+			sendmessage1();
+			return null;
+		}
+	}
+	/**
+	 * private class SendMessage extends AsyncTask<Void, String, String> {
+	 * 
+	 * @Override protected String doInBackground(Void... params) { try {
+	 *           Thread.sleep(2000); //simulate a network call }catch
+	 *           (InterruptedException e) { e.printStackTrace(); }
+	 * 
+	 *           this.publishProgress(String.format("%s started writing",
+	 *           sender)); try { Thread.sleep(2000); //simulate a network call
+	 *           }catch (InterruptedException e) { e.printStackTrace(); }
+	 *           this.publishProgress(String.format("%s has entered text",
+	 *           sender)); try { Thread.sleep(3000);//simulate a network call
+	 *           }catch (InterruptedException e) { e.printStackTrace(); }
+	 * 
+	 * 
+	 *           return
+	 *           Utility.messages[rand.nextInt(Utility.messages.length-1)];
+	 * 
+	 * 
+	 *           }
+	 * @Override public void onProgressUpdate(String... v) {
+	 * 
+	 *           if(messages.get(messages.size()-1).isStatusMessage)//check
+	 *           whether we have already added a status message {
+	 *           messages.get(messages.size()-1).setMessage(v[0]); //update the
+	 *           status for that adapter.notifyDataSetChanged();
+	 *           getListView().setSelection(messages.size()-1); } else{
+	 *           addNewMessage(new MessageTable(true,v[0])); //add new message,
+	 *           if there is no existing status message } }
+	 * @Override protected void onPostExecute(String text) {
+	 *           if(messages.get(messages.size()-1).isStatusMessage)//check if
+	 *           there is any status message, now remove it. {
+	 *           messages.remove(messages.size()-1); }
+	 * 
+	 *           addNewMessage(new MessageTable(text, false)); // add the
+	 *           orignal message from server. }
+	 * 
+	 * 
+	 *           } void addNewMessage(MessageTable m) { messages.add(m);
+	 *           adapter.notifyDataSetChanged();
+	 *           getListView().setSelection(messages.size()-1); }
+	 **/
+}

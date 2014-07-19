@@ -47,6 +47,9 @@ public class ChatHomeScreen extends ListActivity {
 		setContentView(R.layout.chatlist);
 		new getdata().execute();
 		ListView lv = getListView();
+		
+		getActionBar().setDisplayHomeAsUpEnabled(true);
+		
 		lv.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
@@ -103,6 +106,29 @@ public class ChatHomeScreen extends ListActivity {
 		default:
 			return super.onOptionsItemSelected(item);
 		}
+	}
+	getdata getdata;
+	@Override
+	protected void onResume() {
+	    //...
+
+		getdata = new getdata();
+		getdata.execute();
+		super.onResume();
+
+
+	}
+
+	@Override
+	protected void onPause() {
+	    //...
+		getdata.cancel(true);
+		super.onPause();
+		}
+	@Override
+	public void onDestroy() {
+		getdata.cancel(true);
+		super.onDestroy();
 	}
 
 	private Model get(String s, String url, String user_id) {
@@ -204,7 +230,24 @@ public class ChatHomeScreen extends ListActivity {
 			// Copy you logic to calculate progress and call
 			publishProgress("" + progress);
 
-			gettingdata();
+			list.clear();
+			//getActionBar().setDisplayHomeAsUpEnabled(true);
+			final GetDataFromDB getvalues = new GetDataFromDB();
+			String response = getvalues.getImageURLAndDesciptionFromDB();
+			System.out.println("Response : This is  " + response);
+
+			if (!response.equalsIgnoreCase("")) {
+				if (!response.equalsIgnoreCase("error")) {
+					String all[] = response.split("##");
+					for (int k = 0; k < all.length; k++) {
+						String urls_and_desc[] = all[k].split(",");
+						list.add(ChatHomeScreen.this.get(urls_and_desc[1], urls_and_desc[0],
+								urls_and_desc[2]));
+
+					}
+				}
+
+			}
 
 			return null;
 		}

@@ -85,7 +85,7 @@ public class ChatCustomAdpter extends ArrayAdapter<MessageTable> {
 		return view;
 
 	}
-
+	
 	static class ViewHolder {
 
 		protected TextView text;
